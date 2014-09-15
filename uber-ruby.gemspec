@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'uber/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "uber"
+  spec.name          = "uber-ruby"
   spec.version       = Uber::Version
   spec.authors       = ["Dingding Ye"]
   spec.email         = ["yedingding@gmail.com"]

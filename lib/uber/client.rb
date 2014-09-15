@@ -1,5 +1,3 @@
-require 'addressable/uri'
-require 'simple_oauth'
 require 'uber/version'
 require 'uber/error'
 require 'base64'

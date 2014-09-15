@@ -1,4 +1,3 @@
-require 'addressable/uri'
 require 'uber/arguments'
 require 'uber/request'
 

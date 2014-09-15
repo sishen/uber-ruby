@@ -6,7 +6,7 @@ A Ruby interface to the Uber API.
 
 Add this line to your application's Gemfile:
 
-    gem 'uber-ruby'
+    gem 'uber-ruby', require: 'uber'
 
 And then execute:
 
