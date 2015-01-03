@@ -22,6 +22,10 @@ module Uber
       validate_credential_type!
     end
 
+    def bearer_token=(token)
+      @bearer_token = Token.new(access_token: token, token_type: Token::BEARER_TYPE)
+    end
+
     def connection_options
       @connection_options ||= {
         :builder => middleware,
@@ -120,11 +124,10 @@ module Uber
     end
 
     def request_headers(method, path, params = {}, signature_params = params)
-      bearer_token_request = params.delete(:bearer_token_request)
       headers = {}
       headers[:accept]        = '*/*'
       headers[:content_type]  = 'application/x-www-form-urlencoded; charset=UTF-8'
-      if bearer_token_request
+      if bearer_token?
         headers[:authorization] = bearer_auth_header
       else
         headers[:authorization] = server_auth_header

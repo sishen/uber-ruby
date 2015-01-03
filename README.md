@@ -28,7 +28,58 @@ end
 
 ## Usage
 
-TODO: Write usage instructions here
+### Request Products
+
+```ruby
+client = Uber::Client.new do |config|
+  config.server_token  = "YOUR_SERVER_TOKEN"
+end
+client.products(latitude: lat, longitude: lon)
+```
+
+### Request price estimations
+
+```ruby
+client = Uber::Client.new do |config|
+  config.server_token  = "YOUR_SERVER_TOKEN"
+end
+client.price_estimations(start_latitude: slat, start_longitude: slon,
+                         end_latitude: dlat, end_longitude: dlon)
+```
+
+### Request time estimations
+
+```ruby
+client = Uber::Client.new do |config|
+  config.server_token  = "YOUR_SERVER_TOKEN"
+end
+client.time_estimations(start_latitude: slat, start_longitude: slon)
+```
+
+### Retrieve user info
+
+```ruby
+client = Uber::Client.new do |config|
+  config.server_token  = "YOUR_SERVER_TOKEN"
+  config.client_id     = "YOUR_CLIENT_ID"
+  config.client_secret = "YOUR_CLIENT_SECRET"
+  config.bearer_toekn  = "USER_ACCESS_TOKEN"
+end
+client.me
+```
+
+### Retrieve user activities
+
+```ruby
+client = Uber::Client.new do |config|
+  config.server_token  = "YOUR_SERVER_TOKEN"
+  config.client_id     = "YOUR_CLIENT_ID"
+  config.client_secret = "YOUR_CLIENT_SECRET"
+  config.bearer_toekn  = "USER_ACCESS_TOKEN"
+end
+client.history
+```
+
 
 ## Contributing
 

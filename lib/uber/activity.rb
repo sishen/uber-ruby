@@ -1,21 +1,25 @@
 module Uber
   class Activity < Base
-    attr_accessor :offset, :limit, :count, :history
+    attr_accessor :offset, :limit, :count, :histories
 
-    def history=(value)
-      @history = History.new(value)
+    def history=(values)
+      @histories = values.map { |value| History.new(value) }
     end
   end
 
   class History < Base
-    attr_accessor :uuid, :request_time, :product_id, :status, :distance, :start_time, :end_time, :start_location, :end_location
+    attr_accessor :uuid, :request_time, :product_id, :status, :distance, :start_time, :end_time
 
-    def start_location=(value)
-      @start_location = Location.new(value)
+    def request_time=(value)
+      @request_time = ::Time.at(value)
     end
 
-    def end_location=(value)
-      @end_location = Location.new(value)
+    def start_time=(value)
+      @start_time = ::Time.at(value)
+    end
+
+    def end_time=(value)
+      @end_time = ::Time.at(value)
     end
   end
 
