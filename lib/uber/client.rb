@@ -58,8 +58,10 @@ module Uber
         faraday.response :raise_error
         # Parse JSON response bodies
         faraday.response :parse_json
+        # Use instrumentation if available
+        faraday.use :instrumentation if defined?(FaradayMiddleware::Instrumentation)
         # Set default HTTP adapter
-        faraday.adapter :net_http
+        faraday.adapter Faraday.default_adapter
       end
     end
 
