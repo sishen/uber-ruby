@@ -1,9 +1,9 @@
-require 'uber/products'
-require 'uber/price_estimates'
-require 'uber/time_estimates'
-require 'uber/activities'
-require 'uber/me'
-require 'uber/promotions'
+require 'uber/api/products'
+require 'uber/api/price_estimates'
+require 'uber/api/time_estimates'
+require 'uber/api/activities'
+require 'uber/api/me'
+require 'uber/api/promotions'
 
 module Uber
   module API

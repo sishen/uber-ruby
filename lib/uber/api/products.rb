@@ -1,6 +1,6 @@
 require 'uber/arguments'
 require 'uber/request'
-require 'uber/product'
+require 'uber/models/product'
 
 module Uber
   module API
