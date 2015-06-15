@@ -56,6 +56,62 @@ describe Uber::API::Requests do
         expect(request.vehicle.license_plate).to eql 'I<3Uber'
         expect(request.vehicle.picture_url).to eql 'https://d1w2poirtb3as9.cloudfront.net/car.jpeg'
       end
+
+      context 'with a sandbox API' do
+        let!(:sandbox_client) { setup_client(sandbox: true) }
+
+        before do
+          stub_uber_request(:post, "v1/requests",
+                            # From: https://developer.uber.com/v1/endpoints/#request
+                            {
+                               "status" => "accepted",
+                               "driver" => {
+                                  "phone_number" => "(555)555-5555",
+                                  "rating" => 5,
+                                  "picture_url" => "https://d1w2poirtb3as9.cloudfront.net/img.jpeg",
+                                  "name" => "Bob"
+                               },
+                               "eta" => 4,
+                               "location" => {
+                                  "latitude" => 37.776033,
+                                  "longitude" => -122.418143,
+                                  "bearing" => 33
+                               },
+                               "vehicle" => {
+                                  "make" => "Bugatti",
+                                  "model" => "Veyron",
+                                  "license_plate" => "I<3Uber",
+                                  "picture_url" => "https://d1w2poirtb3as9.cloudfront.net/car.jpeg",
+                               },
+                               "surge_multiplier" =>  1.0,
+                               "request_id" => "b2205127-a334-4df4-b1ba-fc9f28f56c96"
+                            },
+                            body: 'end_latitude=0.0&end_longitude=0.6&product_id=deadbeef&start_latitude=0.0&start_longitude=0.5',
+                            status_code: 201,
+                            sandbox: true)
+        end
+
+        it 'should submit a request for a ride' do
+          request = sandbox_client.trip_request(product_id: 'deadbeef', start_latitude: 0.0, start_longitude: 0.5, end_latitude: 0.0, end_longitude: 0.6)
+          expect(request.status).to eql 'accepted'
+          expect(request.surge_multiplier).to eql 1.0
+          expect(request.request_id).to eql 'b2205127-a334-4df4-b1ba-fc9f28f56c96'
+
+          expect(request.driver.phone_number).to eql '(555)555-5555'
+          expect(request.driver.rating).to eql 5
+          expect(request.driver.picture_url).to eql  'https://d1w2poirtb3as9.cloudfront.net/img.jpeg'
+          expect(request.driver.name).to eql 'Bob'
+
+          expect(request.location.latitude).to eql 37.776033
+          expect(request.location.longitude).to eql -122.418143
+          expect(request.location.bearing).to eql 33
+
+          expect(request.vehicle.make).to eql 'Bugatti'
+          expect(request.vehicle.model).to eql 'Veyron'
+          expect(request.vehicle.license_plate).to eql 'I<3Uber'
+          expect(request.vehicle.picture_url).to eql 'https://d1w2poirtb3as9.cloudfront.net/car.jpeg'
+        end
+      end
     end
 
     context 'with a 409 conflict with surge response' do

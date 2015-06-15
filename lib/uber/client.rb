@@ -11,8 +11,11 @@ module Uber
 
     attr_accessor :server_token, :client_id, :client_secret
     attr_accessor :bearer_token
+    attr_accessor :sandbox
+
     attr_writer :connection_options, :middleware
     ENDPOINT = 'https://api.uber.com'
+    SANDBOX_ENDPOINT = 'https://sandbox-api.uber.com'
 
     def initialize(options = {})
       options.each do |key, value|
@@ -112,7 +115,7 @@ module Uber
     #
     # @return [Faraday::Connection]
     def connection
-      @connection ||= Faraday.new(ENDPOINT, connection_options)
+      @connection ||= Faraday.new(self.sandbox ? SANDBOX_ENDPOINT : ENDPOINT, connection_options)
     end
 
     def request(method, path, params = {}, headers = {})
