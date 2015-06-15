@@ -5,9 +5,13 @@ module ClientHelpers
     Uber::Client.new { |c| c.bearer_token = 'UBER_BEARER_TOKEN' }
   end
 
-  def stub_uber_request(method, api_endpoint, response_hash)
+  def stub_uber_request(method, api_endpoint, response_hash, opts = {})
+    with_opts = {headers: {'Authorization' => 'Bearer UBER_BEARER_TOKEN'}}
+    with_opts[:body] = opts[:body] unless opts[:body].nil?
+    status_code = opts[:status_code] || 200
+
     stub_request(method, "https://api.uber.com/#{api_endpoint}").
-      with(headers: {'Authorization' => 'Bearer UBER_BEARER_TOKEN'}).
-      to_return(status: 200, body: response_hash.to_json)
+      with(with_opts).
+      to_return(status: status_code, body: response_hash.to_json)
   end
 end

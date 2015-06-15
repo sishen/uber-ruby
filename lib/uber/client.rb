@@ -54,8 +54,6 @@ module Uber
       @middleware ||= Faraday::RackBuilder.new do |faraday|
         # Encodes as "application/x-www-form-urlencoded" if not already encoded
         faraday.request :url_encoded
-        # Handle error responses
-        faraday.response :raise_error
         # Parse JSON response bodies
         faraday.response :parse_json
         # Use instrumentation if available
