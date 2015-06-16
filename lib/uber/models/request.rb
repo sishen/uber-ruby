@@ -3,15 +3,15 @@ module Uber
     attr_accessor :request_id, :status, :vehicle, :driver, :location, :eta, :surge_multiplier, :meta, :errors
 
     def driver=(value)
-      @driver = Driver.new(value)
+      @driver = value.nil? ? nil : Driver.new(value)
     end
 
     def vehicle=(value)
-      @vehicle = Vehicle.new(value)
+      @vehicle = value.nil? ? nil : Vehicle.new(value)
     end
 
     def location=(value)
-      @location = Location.new(value)
+      @location = value.nil? ? nil : Location.new(value)
     end
 
     def errors=(values)

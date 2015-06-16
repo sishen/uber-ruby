@@ -114,6 +114,36 @@ describe Uber::API::Requests do
       end
     end
 
+    context 'with a "processing" response' do
+      before do
+        stub_uber_request(:post, "v1/requests",
+                          # From: https://developer.uber.com/v1/endpoints/#request
+                          {
+                            :status => "processing",
+                            :request_id => "cad219b7-9cfa-4861-b59b-1e1184429b33",
+                            :driver => nil,
+                            :eta => 7,
+                            :location => nil,
+                            :vehicle => nil,
+                            :surge_multiplier => 1.0
+                          },
+                          body: {product_id: 'deadbeef', start_latitude: 0.0, start_longitude: 0.5, end_latitude: 0.0, end_longitude: 0.6}.to_json,
+                          status_code: 409)
+      end
+
+      it 'should submit a request for a ride' do
+        request = client.trip_request(product_id: 'deadbeef', start_latitude: 0.0, start_longitude: 0.5, end_latitude: 0.0, end_longitude: 0.6)
+        expect(request.status).to eql 'processing'
+        expect(request.eta).to eql 7
+        expect(request.surge_multiplier).to eql 1.0
+        expect(request.request_id).to eql 'cad219b7-9cfa-4861-b59b-1e1184429b33'
+
+        expect(request.driver).to be_nil
+        expect(request.location).to be_nil
+        expect(request.vehicle).to be_nil
+      end
+    end
+
     context 'with a 409 conflict with surge response' do
       before do
         stub_uber_request(:post, "v1/requests",
