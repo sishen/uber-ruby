@@ -75,7 +75,7 @@ module Uber
     # Perform an HTTP POST request
     def post(path, params = {})
       headers = params.values.any? { |value| value.respond_to?(:to_io) } ? request_headers(:post, path, params, {}) : request_headers(:post, path, params)
-      request(:post, path, params, headers)
+      request(:post, path, params.to_json, headers)
     end
 
     # @return [Boolean]
@@ -129,7 +129,7 @@ module Uber
     def request_headers(method, path, params = {}, signature_params = params)
       headers = {}
       headers[:accept]        = '*/*'
-      headers[:content_type]  = 'application/x-www-form-urlencoded; charset=UTF-8'
+      headers[:content_type]  = 'application/json; charset=UTF-8'
       if bearer_token?
         headers[:authorization] = bearer_auth_header
       else

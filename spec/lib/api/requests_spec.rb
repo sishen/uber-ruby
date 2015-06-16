@@ -32,7 +32,7 @@ describe Uber::API::Requests do
                              "surge_multiplier" =>  1.0,
                              "request_id" => "b2205127-a334-4df4-b1ba-fc9f28f56c96"
                           },
-                          body: 'end_latitude=0.0&end_longitude=0.6&product_id=deadbeef&start_latitude=0.0&start_longitude=0.5',
+                          body: {product_id: 'deadbeef', start_latitude: 0.0, start_longitude: 0.5, end_latitude: 0.0, end_longitude: 0.6}.to_json,
                           status_code: 201)
       end
 
@@ -86,7 +86,7 @@ describe Uber::API::Requests do
                                "surge_multiplier" =>  1.0,
                                "request_id" => "b2205127-a334-4df4-b1ba-fc9f28f56c96"
                             },
-                            body: 'end_latitude=0.0&end_longitude=0.6&product_id=deadbeef&start_latitude=0.0&start_longitude=0.5',
+                            body: {product_id: 'deadbeef', start_latitude: 0.0, start_longitude: 0.5, end_latitude: 0.0, end_longitude: 0.6}.to_json,
                             status_code: 201,
                             sandbox: true)
         end
@@ -133,7 +133,7 @@ describe Uber::API::Requests do
                                 }
                              ]
                           },
-                          body: 'end_latitude=0.0&end_longitude=0.6&product_id=deadbeef&start_latitude=0.0&start_longitude=0.5',
+                          body: {product_id: 'deadbeef', start_latitude: 0.0, start_longitude: 0.5, end_latitude: 0.0, end_longitude: 0.6}.to_json,
                           status_code: 409)
       end
 
