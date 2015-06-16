@@ -39,6 +39,7 @@ describe Uber::API::Requests do
       it 'should submit a request for a ride' do
         request = client.trip_request(product_id: 'deadbeef', start_latitude: 0.0, start_longitude: 0.5, end_latitude: 0.0, end_longitude: 0.6)
         expect(request.status).to eql 'accepted'
+        expect(request.eta).to eql 4
         expect(request.surge_multiplier).to eql 1.0
         expect(request.request_id).to eql 'b2205127-a334-4df4-b1ba-fc9f28f56c96'
 
@@ -94,6 +95,7 @@ describe Uber::API::Requests do
         it 'should submit a request for a ride' do
           request = sandbox_client.trip_request(product_id: 'deadbeef', start_latitude: 0.0, start_longitude: 0.5, end_latitude: 0.0, end_longitude: 0.6)
           expect(request.status).to eql 'accepted'
+          expect(request.eta).to eql 4
           expect(request.surge_multiplier).to eql 1.0
           expect(request.request_id).to eql 'b2205127-a334-4df4-b1ba-fc9f28f56c96'
 
@@ -215,6 +217,7 @@ describe Uber::API::Requests do
       request = client.trip_details('deadbeef')
       expect(request.status).to eql 'accepted'
       expect(request.surge_multiplier).to eql 1.0
+      expect(request.eta).to eql 4
       expect(request.request_id).to eql 'b2205127-a334-4df4-b1ba-fc9f28f56c96'
 
       expect(request.driver.phone_number).to eql '(555)555-5555'
