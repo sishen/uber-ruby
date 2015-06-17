@@ -18,6 +18,10 @@ module Uber
       def trip_map(request_id)
         perform_with_object(:get, "v1/requests/#{request_id}/map", {}, Map)
       end
+
+      def trip_update(request_id, status)
+        perform_with_object(:put, "v1/sandbox/requests/#{request_id}", {status: status}, Request)
+      end
     end
   end
 end

@@ -8,9 +8,11 @@ module Uber
     # @param attrs [Hash]
     # @return [Uber::Base]
     def initialize(attrs = {})
-      attrs.each do |key, value|
-        if respond_to?(:"#{key}=")
-          send(:"#{key}=", value)
+      if !(attrs.nil? || attrs == "")
+        attrs.each do |key, value|
+          if respond_to?(:"#{key}=")
+            send(:"#{key}=", value)
+          end
         end
       end
     end

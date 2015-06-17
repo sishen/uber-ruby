@@ -252,4 +252,22 @@ describe Uber::API::Requests do
       expect(map.href).to eql "https://trip.uber.com/abc123"
     end
   end
+
+  describe '#trip_update' do
+    let!(:sandbox_client) { setup_client(sandbox: true) }
+
+    before do
+      stub_uber_request(:put, "v1/sandbox/requests/deadbeef",
+                        # From: https://developer.uber.com/v1/sandbox/
+                        nil,
+                        body: {status: 'accepted'}.to_json,
+                        status_code: 204,
+                        sandbox: true)
+    end
+
+    it 'should update the state of the request in the sandbox' do
+      request = sandbox_client.trip_update('deadbeef', 'accepted')
+      expect(request.class).to eql Uber::Request
+    end
+  end
 end

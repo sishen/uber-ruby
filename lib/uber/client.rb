@@ -78,6 +78,12 @@ module Uber
       request(:post, path, params.to_json, headers)
     end
 
+    # Perform an HTTP PUT request
+    def put(path, params = {})
+      headers = params.values.any? { |value| value.respond_to?(:to_io) } ? request_headers(:post, path, params, {}) : request_headers(:put, path, params)
+      request(:put, path, params.to_json, headers)
+    end
+
     # @return [Boolean]
     def bearer_token?
       !!bearer_token

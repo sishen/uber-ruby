@@ -15,8 +15,10 @@ module ClientHelpers
 
     host = opts[:sandbox] ? Uber::Client::SANDBOX_ENDPOINT : Uber::Client::ENDPOINT
 
+    response = response_hash.nil? ? "" : response_hash.to_json
+
     stub_request(method, "#{host}/#{api_endpoint}").
       with(with_opts).
-      to_return(status: status_code, body: response_hash.to_json)
+      to_return(status: status_code, body: response)
   end
 end
