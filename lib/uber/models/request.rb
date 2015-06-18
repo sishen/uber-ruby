@@ -17,6 +17,10 @@ module Uber
     def errors=(values)
       @errors = values.map { |v| RequestError.new(v) }
     end
+
+    def vehicle_name
+      vehicle.nil? ? nil : "#{vehicle.make} #{vehicle.model}"
+    end
   end
 
   class RequestError < Base
