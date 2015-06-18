@@ -22,6 +22,14 @@ module Uber
       vehicle.nil? ? nil : "#{vehicle.make} #{vehicle.model}"
     end
 
+    def vehicle_image_url
+      vehicle.nil? ? nil : "#{vehicle.picture_url}"
+    end
+
+    def driver_image_url
+      driver.nil? ? nil : "#{driver.picture_url}"
+    end
+
     def humanized_eta
       unless eta.nil?
         eta.to_i == 1 ? "#{eta} minute" : "#{eta} minutes"
