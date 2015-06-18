@@ -21,6 +21,12 @@ module Uber
     def vehicle_name
       vehicle.nil? ? nil : "#{vehicle.make} #{vehicle.model}"
     end
+
+    def humanized_eta
+      unless eta.nil?
+        eta.to_i == 1 ? "#{eta} minute" : "#{eta} minutes"
+      end
+    end
   end
 
   class RequestError < Base
