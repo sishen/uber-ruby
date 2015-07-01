@@ -80,6 +80,9 @@ end
 client.history
 ```
 
+## Contributors
+
+* [Arun Thampi](https://github.com/arunthampi)
 
 ## Contributing
 
