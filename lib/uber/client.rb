@@ -11,8 +11,11 @@ module Uber
 
     attr_accessor :server_token, :client_id, :client_secret
     attr_accessor :bearer_token
+    attr_accessor :sandbox
+
     attr_writer :connection_options, :middleware
     ENDPOINT = 'https://api.uber.com'
+    SANDBOX_ENDPOINT = 'https://sandbox-api.uber.com'
 
     def initialize(options = {})
       options.each do |key, value|
@@ -54,8 +57,6 @@ module Uber
       @middleware ||= Faraday::RackBuilder.new do |faraday|
         # Encodes as "application/x-www-form-urlencoded" if not already encoded
         faraday.request :url_encoded
-        # Handle error responses
-        faraday.response :raise_error
         # Parse JSON response bodies
         faraday.response :parse_json
         # Use instrumentation if available
@@ -74,7 +75,13 @@ module Uber
     # Perform an HTTP POST request
     def post(path, params = {})
       headers = params.values.any? { |value| value.respond_to?(:to_io) } ? request_headers(:post, path, params, {}) : request_headers(:post, path, params)
-      request(:post, path, params, headers)
+      request(:post, path, params.to_json, headers)
+    end
+
+    # Perform an HTTP PUT request
+    def put(path, params = {})
+      headers = params.values.any? { |value| value.respond_to?(:to_io) } ? request_headers(:post, path, params, {}) : request_headers(:put, path, params)
+      request(:put, path, params.to_json, headers)
     end
 
     # @return [Boolean]
@@ -114,7 +121,7 @@ module Uber
     #
     # @return [Faraday::Connection]
     def connection
-      @connection ||= Faraday.new(ENDPOINT, connection_options)
+      @connection ||= Faraday.new(self.sandbox ? SANDBOX_ENDPOINT : ENDPOINT, connection_options)
     end
 
     def request(method, path, params = {}, headers = {})
@@ -128,7 +135,7 @@ module Uber
     def request_headers(method, path, params = {}, signature_params = params)
       headers = {}
       headers[:accept]        = '*/*'
-      headers[:content_type]  = 'application/x-www-form-urlencoded; charset=UTF-8'
+      headers[:content_type]  = 'application/json; charset=UTF-8'
       if bearer_token?
         headers[:authorization] = bearer_auth_header
       else

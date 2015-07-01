@@ -1,6 +1,6 @@
 require 'uber/arguments'
-require 'uber/request'
-require 'uber/user'
+require 'uber/api_request'
+require 'uber/models/user'
 
 module Uber
   module API

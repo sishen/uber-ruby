@@ -1,5 +1,5 @@
 require 'uber/arguments'
-require 'uber/request'
+require 'uber/api_request'
 
 module Uber
   module Utils
@@ -8,7 +8,7 @@ module Uber
     # @param options [Hash]
     # @param klass [Class]
     def perform_with_object(request_method, path, options, klass)
-      request = Uber::Request.new(self, request_method, path, options)
+      request = Uber::ApiRequest.new(self, request_method, path, options)
       request.perform_with_object(klass)
     end
 
@@ -17,7 +17,7 @@ module Uber
     # @param options [Hash]
     # @param klass [Class]
     def perform_with_objects(request_method, path, options, klass)
-      request = Uber::Request.new(self, request_method, path, options)
+      request = Uber::ApiRequest.new(self, request_method, path, options)
       request.perform_with_objects(klass)
     end
   end
