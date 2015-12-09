@@ -15,12 +15,12 @@ module Uber
     # @return [Time]
     def reset_at
       reset = @attrs['x-rate-limit-reset']
-      Time.at(reset.to_i) if reset
+      ::Time.at(reset.to_i) if reset
     end
 
     # @return [Integer]
     def reset_in
-      [(reset_at - Time.now).ceil, 0].max if reset_at
+      [(reset_at - ::Time.now).ceil, 0].max if reset_at
     end
   end
 end
