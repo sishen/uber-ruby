@@ -8,7 +8,7 @@ module Uber
   end
 
   class History < Base
-    attr_accessor :uuid, :request_time, :product_id, :status, :distance, :start_time, :end_time
+    attr_accessor :uuid, :request_time, :product_id, :status, :distance, :start_time, :end_time, :start_city
 
     def request_time=(value)
       @request_time = ::Time.at(value)
