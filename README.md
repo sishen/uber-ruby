@@ -63,7 +63,7 @@ client = Uber::Client.new do |config|
   config.server_token  = "YOUR_SERVER_TOKEN"
   config.client_id     = "YOUR_CLIENT_ID"
   config.client_secret = "YOUR_CLIENT_SECRET"
-  config.bearer_toekn  = "USER_ACCESS_TOKEN"
+  config.bearer_token  = "USER_ACCESS_TOKEN"
 end
 client.me
 ```
@@ -75,7 +75,7 @@ client = Uber::Client.new do |config|
   config.server_token  = "YOUR_SERVER_TOKEN"
   config.client_id     = "YOUR_CLIENT_ID"
   config.client_secret = "YOUR_CLIENT_SECRET"
-  config.bearer_toekn  = "USER_ACCESS_TOKEN"
+  config.bearer_token  = "USER_ACCESS_TOKEN"
 end
 client.history
 ```
