@@ -142,6 +142,30 @@ end
 client.trip_update('request_id', 'accepted')
 ```
 
+### Retrieve a ride request details
+
+```ruby
+client = Uber::Client.new do |config|
+  config.client_id     = "YOUR_CLIENT_ID"
+  config.client_secret = "YOUR_CLIENT_SECRET"
+  config.bearer_toekn  = "USER_ACCESS_TOKEN"
+end
+
+client.trip_details 'request_id'
+```
+
+### Cancel a ride request
+
+```ruby
+client = Uber::Client.new do |config|
+  config.client_id     = "YOUR_CLIENT_ID"
+  config.client_secret = "YOUR_CLIENT_SECRET"
+  config.bearer_toekn  = "USER_ACCESS_TOKEN"
+end
+
+client.trip_cancel 'request_id'
+```
+
 ## Contributors
 
 * [Arun Thampi](https://github.com/arunthampi)
