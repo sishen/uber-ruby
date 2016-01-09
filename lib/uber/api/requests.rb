@@ -7,7 +7,7 @@ require 'uber/models/map'
 module Uber
   module API
     module Requests
-			def trip_estimate(*args)
+      def trip_estimate(*args)
         arguments = Uber::Arguments.new(args)
         perform_with_object(:post, "v1/requests/estimate", arguments.options, Estimate)
       end
@@ -29,7 +29,7 @@ module Uber
         perform_with_object(:put, "v1/sandbox/requests/#{request_id}", {status: status}, Request)
       end
 
-			def trip_cancel(request_id)
+      def trip_cancel(request_id)
         perform_with_object(:delete, "v1/requests/#{request_id}", {}, Request)
       end
     end
