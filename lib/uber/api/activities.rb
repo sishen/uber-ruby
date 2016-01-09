@@ -7,7 +7,7 @@ module Uber
     module Activities
       def history(*args)
         arguments = Uber::Arguments.new(args)
-        perform_with_object(:get, "/v1.1/history", arguments.options, Activity)
+        perform_with_object(:get, "/v1.2/history", arguments.options, Activity)
       end
     end
   end
