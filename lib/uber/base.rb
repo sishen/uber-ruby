@@ -9,7 +9,6 @@ module Uber
     # @return [Uber::Base]
     def initialize(attrs = {})
       return if attrs.nil? || attrs.empty?
-      @attrs = attrs
       attrs.each do |key, value|
         if respond_to?(:"#{key}=")
           send(:"#{key}=", value)

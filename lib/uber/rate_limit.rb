@@ -1,5 +1,12 @@
 module Uber
-  class RateLimit < Uber::Base
+  class RateLimit
+    attr_reader :attrs
+
+    def initialize(attrs = {})
+      return if attrs.nil? || attrs.empty?
+      @attrs = attrs
+    end
+
     # @return [Integer]
     def limit
       limit = @attrs['x-rate-limit-limit']
