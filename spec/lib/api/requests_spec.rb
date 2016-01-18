@@ -4,28 +4,28 @@ require 'uber'
 describe Uber::API::Requests do
   let!(:client) { setup_client }
 
-	describe '#trip_estimate' do
+  describe '#trip_estimate' do
     context 'with a valid response' do
       before do
         stub_uber_request(:post, "v1/requests/estimate",
                           # From: https://developer.uber.com/docs/v1-requests-estimate
                           {
-                             "price" => {
-                                "surge_confirmation_href" => "https:\/\/api.uber.com\/v1\/surge-confirmations\/7d604f5e",
-                                "high_estimate" => 6,
-                                "surge_confirmation_id"=> "7d604f5e",
-                                "minimum"=> 5,
-																"low_estimate"=> 5,
-																"surge_multiplier"=> 1.2,
-																"display"=> "$5-6",
-																"currency_code"=> "USD"
-                             },
-                             "trip" => {
-                                "distance_unit"=> "mile",
-                                "duration_estimate"=> 540,
-                                "distance_estimate"=> 2.1
-                             },
-                             "pickup_estimate" => 2,
+                            "price" => {
+                              "surge_confirmation_href" => "https:\/\/api.uber.com\/v1\/surge-confirmations\/7d604f5e",
+                              "high_estimate" => 6,
+                              "surge_confirmation_id"=> "7d604f5e",
+                              "minimum"=> 5,
+                              "low_estimate"=> 5,
+                              "surge_multiplier"=> 1.2,
+                              "display"=> "$5-6",
+                              "currency_code"=> "USD"
+                            },
+                            "trip" => {
+                              "distance_unit"=> "mile",
+                              "duration_estimate"=> 540,
+                              "distance_estimate"=> 2.1
+                            },
+                            "pickup_estimate" => 2,
                           },
                           body: {product_id: 'deadbeef', start_latitude: 0.0, start_longitude: 0.5, end_latitude: 0.0, end_longitude: 0.6}.to_json,
                           status_code: 200)
@@ -39,16 +39,16 @@ describe Uber::API::Requests do
         expect(request.price.high_estimate).to eql 6
         expect(request.price.surge_confirmation_id).to eql  '7d604f5e'
         expect(request.price.minimum).to eql 5
-				expect(request.price.low_estimate).to eql 5
-				expect(request.price.surge_multiplier).to eql 1.2
-				expect(request.price.display).to eql '$5-6'
-				expect(request.price.currency_code).to eql 'USD'
+        expect(request.price.low_estimate).to eql 5
+        expect(request.price.surge_multiplier).to eql 1.2
+        expect(request.price.display).to eql '$5-6'
+        expect(request.price.currency_code).to eql 'USD'
 
         expect(request.trip.distance_unit).to eql 'mile'
         expect(request.trip.duration_estimate).to eql 540
         expect(request.trip.distance_estimate).to eql 2.1
       end
-		end
+    end
   end
 
   describe '#trip_request' do
@@ -57,27 +57,27 @@ describe Uber::API::Requests do
         stub_uber_request(:post, "v1/requests",
                           # From: https://developer.uber.com/v1/endpoints/#request
                           {
-                             "status" => "accepted",
-                             "driver" => {
-                                "phone_number" => "(555)555-5555",
-                                "rating" => 5,
-                                "picture_url" => "https://d1w2poirtb3as9.cloudfront.net/img.jpeg",
-                                "name" => "Bob"
-                             },
-                             "eta" => 4,
-                             "location" => {
-                                "latitude" => 37.776033,
-                                "longitude" => -122.418143,
-                                "bearing" => 33
-                             },
-                             "vehicle" => {
-                                "make" => "Bugatti",
-                                "model" => "Veyron",
-                                "license_plate" => "I<3Uber",
-                                "picture_url" => "https://d1w2poirtb3as9.cloudfront.net/car.jpeg",
-                             },
-                             "surge_multiplier" =>  1.0,
-                             "request_id" => "b2205127-a334-4df4-b1ba-fc9f28f56c96"
+                            "status" => "accepted",
+                            "driver" => {
+                              "phone_number" => "(555)555-5555",
+                              "rating" => 5,
+                              "picture_url" => "https://d1w2poirtb3as9.cloudfront.net/img.jpeg",
+                              "name" => "Bob"
+                            },
+                            "eta" => 4,
+                            "location" => {
+                              "latitude" => 37.776033,
+                              "longitude" => -122.418143,
+                              "bearing" => 33
+                            },
+                            "vehicle" => {
+                              "make" => "Bugatti",
+                              "model" => "Veyron",
+                              "license_plate" => "I<3Uber",
+                              "picture_url" => "https://d1w2poirtb3as9.cloudfront.net/car.jpeg",
+                            },
+                            "surge_multiplier" =>  1.0,
+                            "request_id" => "b2205127-a334-4df4-b1ba-fc9f28f56c96"
                           },
                           body: {product_id: 'deadbeef', start_latitude: 0.0, start_longitude: 0.5, end_latitude: 0.0, end_longitude: 0.6}.to_json,
                           status_code: 201)
@@ -112,31 +112,31 @@ describe Uber::API::Requests do
           stub_uber_request(:post, "v1/requests",
                             # From: https://developer.uber.com/v1/endpoints/#request
                             {
-                               "status" => "accepted",
-                               "driver" => {
-                                  "phone_number" => "(555)555-5555",
-                                  "rating" => 5,
-                                  "picture_url" => "https://d1w2poirtb3as9.cloudfront.net/img.jpeg",
-                                  "name" => "Bob"
-                               },
-                               "eta" => 4,
-                               "location" => {
-                                  "latitude" => 37.776033,
-                                  "longitude" => -122.418143,
-                                  "bearing" => 33
-                               },
-                               "vehicle" => {
-                                  "make" => "Bugatti",
-                                  "model" => "Veyron",
-                                  "license_plate" => "I<3Uber",
-                                  "picture_url" => "https://d1w2poirtb3as9.cloudfront.net/car.jpeg",
-                               },
-                               "surge_multiplier" =>  1.0,
-                               "request_id" => "b2205127-a334-4df4-b1ba-fc9f28f56c96"
+                              "status" => "accepted",
+                              "driver" => {
+                                "phone_number" => "(555)555-5555",
+                                "rating" => 5,
+                                "picture_url" => "https://d1w2poirtb3as9.cloudfront.net/img.jpeg",
+                                "name" => "Bob"
+                              },
+                              "eta" => 4,
+                              "location" => {
+                                "latitude" => 37.776033,
+                                "longitude" => -122.418143,
+                                "bearing" => 33
+                              },
+                              "vehicle" => {
+                                "make" => "Bugatti",
+                                "model" => "Veyron",
+                                "license_plate" => "I<3Uber",
+                                "picture_url" => "https://d1w2poirtb3as9.cloudfront.net/car.jpeg",
+                              },
+                              "surge_multiplier" =>  1.0,
+                              "request_id" => "b2205127-a334-4df4-b1ba-fc9f28f56c96"
                             },
                             body: {product_id: 'deadbeef', start_latitude: 0.0, start_longitude: 0.5, end_latitude: 0.0, end_longitude: 0.6}.to_json,
                             status_code: 201,
-                            sandbox: true)
+                                         sandbox: true)
         end
 
         it 'should submit a request for a ride' do
@@ -198,19 +198,19 @@ describe Uber::API::Requests do
         stub_uber_request(:post, "v1/requests",
                           # From: https://developer.uber.com/v1/endpoints/#request
                           {
-                             "meta" => {
-                                "surge_confirmation" => {
-                                   "href" => "https://api.uber.com/v1/surge-confirmations/e100a670",
-                                   "surge_confirmation_id" => "e100a670"
-                                }
-                             },
-                             "errors" =>[
-                                {
-                                   "status" => 409,
-                                   "code" => "surge",
-                                   "title" => "Surge pricing is currently in effect for this product."
-                                }
-                             ]
+                            "meta" => {
+                              "surge_confirmation" => {
+                                "href" => "https://api.uber.com/v1/surge-confirmations/e100a670",
+                                "surge_confirmation_id" => "e100a670"
+                              }
+                            },
+                            "errors" =>[
+                              {
+                                "status" => 409,
+                                "code" => "surge",
+                                "title" => "Surge pricing is currently in effect for this product."
+                              }
+                            ]
                           },
                           body: {product_id: 'deadbeef', start_latitude: 0.0, start_longitude: 0.5, end_latitude: 0.0, end_longitude: 0.6}.to_json,
                           status_code: 409)
@@ -235,27 +235,27 @@ describe Uber::API::Requests do
       stub_uber_request(:get, "v1/requests/deadbeef",
                         # From: https://developer.uber.com/v1/endpoints/#request-details
                         {
-                           "status" => "accepted",
-                           "driver" => {
-                              "phone_number" => "(555)555-5555",
-                              "rating" => 5,
-                              "picture_url" => "https://d1w2poirtb3as9.cloudfront.net/img.jpeg",
-                              "name" => "Bob"
-                           },
-                           "eta" => 4,
-                           "location" => {
-                              "latitude" => 37.776033,
-                              "longitude" => -122.418143,
-                              "bearing" => 33
-                           },
-                           "vehicle" => {
-                              "make" => "Bugatti",
-                              "model" => "Veyron",
-                              "license_plate" => "I<3Uber",
-                              "picture_url" => "https://d1w2poirtb3as9.cloudfront.net/car.jpeg",
-                           },
-                           "surge_multiplier" =>  1.0,
-                           "request_id" => "b2205127-a334-4df4-b1ba-fc9f28f56c96"
+                          "status" => "accepted",
+                          "driver" => {
+                            "phone_number" => "(555)555-5555",
+                            "rating" => 5,
+                            "picture_url" => "https://d1w2poirtb3as9.cloudfront.net/img.jpeg",
+                            "name" => "Bob"
+                          },
+                          "eta" => 4,
+                          "location" => {
+                            "latitude" => 37.776033,
+                            "longitude" => -122.418143,
+                            "bearing" => 33
+                          },
+                          "vehicle" => {
+                            "make" => "Bugatti",
+                            "model" => "Veyron",
+                            "license_plate" => "I<3Uber",
+                            "picture_url" => "https://d1w2poirtb3as9.cloudfront.net/car.jpeg",
+                          },
+                          "surge_multiplier" =>  1.0,
+                          "request_id" => "b2205127-a334-4df4-b1ba-fc9f28f56c96"
                         },
                         status_code: 200)
     end
@@ -309,7 +309,7 @@ describe Uber::API::Requests do
                         nil,
                         body: {status: 'accepted'}.to_json,
                         status_code: 204,
-                        sandbox: true)
+                                     sandbox: true)
     end
 
     it 'should update the state of the request in the sandbox' do
@@ -318,7 +318,7 @@ describe Uber::API::Requests do
     end
   end
 
-	  describe '#trip_cancel' do
+  describe '#trip_cancel' do
     let!(:sandbox_client) { setup_client(sandbox: true) }
 
     before do
@@ -327,7 +327,7 @@ describe Uber::API::Requests do
                         nil,
                         body: {},
                         status_code: 204,
-                        sandbox: true)
+                                     sandbox: true)
     end
 
     it 'should cancel the request in the sandbox' do
