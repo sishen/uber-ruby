@@ -1,6 +1,6 @@
 # The Uber Ruby Gem
 
-A Ruby interface to the Uber API.
+> A Ruby interface to the Uber API.
 
 ## Installation
 
@@ -78,6 +78,92 @@ client = Uber::Client.new do |config|
   config.bearer_token  = "USER_ACCESS_TOKEN"
 end
 client.history
+```
+
+### Request a ride
+
+```ruby
+client = Uber::Client.new do |config|
+  config.client_id     = "YOUR_CLIENT_ID"
+  config.client_secret = "YOUR_CLIENT_SECRET"
+  config.bearer_toekn  = "USER_ACCESS_TOKEN"
+end
+
+client.trip_request(product_id: product_id, start_latitude: start_lat, start_longitude: start_lng, end_latitude: end_lat, end_longitude: end_lng)
+```
+
+### Simulate a ride request with surge
+
+```ruby
+client = Uber::Client.new do |config|
+  config.client_id     = "YOUR_CLIENT_ID"
+  config.client_secret = "YOUR_CLIENT_SECRET"
+  config.bearer_toekn  = "USER_ACCESS_TOKEN"
+end
+
+# Only available in sandbox environment
+# Use this to simulate a surge
+# More info here https://developer.uber.com/docs/sandbox#section-product-types
+client.apply_surge 'product_id', 2.0
+
+client.trip_request(product_id: product_id, start_latitude: start_lat, start_longitude: start_lng, end_latitude: end_lat, end_longitude: end_lng, surge_confirmation_id: surge_id)
+```
+
+### Simulate a ride request with no drivers available
+
+```ruby
+client = Uber::Client.new do |config|
+  config.client_id     = "YOUR_CLIENT_ID"
+  config.client_secret = "YOUR_CLIENT_SECRET"
+  config.bearer_toekn  = "USER_ACCESS_TOKEN"
+end
+
+# Only available in sandbox environment
+# Use this to simulate a request with no drivers available
+# More info here https://developer.uber.com/docs/sandbox#section-product-types
+client.apply_availability 'product_id', false
+
+client.trip_request(product_id: product_id, start_latitude: start_lat, start_longitude: start_lng, end_latitude: end_lat, end_longitude: end_lng)
+```
+
+### Update the status of a ride request
+
+```ruby
+client = Uber::Client.new do |config|
+  config.client_id     = "YOUR_CLIENT_ID"
+  config.client_secret = "YOUR_CLIENT_SECRET"
+  config.bearer_toekn  = "USER_ACCESS_TOKEN"
+end
+
+# Only available in sandbox environment
+# Use this to simulate the status change of a ride request
+# More info here https://developer.uber.com/docs/sandbox#section-request
+
+client.trip_update('request_id', 'accepted')
+```
+
+### Retrieve a ride request details
+
+```ruby
+client = Uber::Client.new do |config|
+  config.client_id     = "YOUR_CLIENT_ID"
+  config.client_secret = "YOUR_CLIENT_SECRET"
+  config.bearer_toekn  = "USER_ACCESS_TOKEN"
+end
+
+client.trip_details 'request_id'
+```
+
+### Cancel a ride request
+
+```ruby
+client = Uber::Client.new do |config|
+  config.client_id     = "YOUR_CLIENT_ID"
+  config.client_secret = "YOUR_CLIENT_SECRET"
+  config.bearer_toekn  = "USER_ACCESS_TOKEN"
+end
+
+client.trip_cancel 'request_id'
 ```
 
 ## Contributors

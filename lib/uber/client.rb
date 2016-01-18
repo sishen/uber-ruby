@@ -84,6 +84,12 @@ module Uber
       request(:put, path, params.to_json, headers)
     end
 
+    # Perform an HTTP DELETE request
+    def delete(path, params = {})
+      headers = request_headers(:delete, path, params)
+      request(:delete, path, params, headers)
+    end
+
     # @return [Boolean]
     def bearer_token?
       !!bearer_token
