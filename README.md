@@ -86,7 +86,7 @@ client.history
 client = Uber::Client.new do |config|
   config.client_id     = "YOUR_CLIENT_ID"
   config.client_secret = "YOUR_CLIENT_SECRET"
-  config.bearer_toekn  = "USER_ACCESS_TOKEN"
+  config.bearer_token  = "USER_ACCESS_TOKEN"
 end
 
 client.trip_request(product_id: product_id, start_latitude: start_lat, start_longitude: start_lng, end_latitude: end_lat, end_longitude: end_lng)
@@ -98,7 +98,7 @@ client.trip_request(product_id: product_id, start_latitude: start_lat, start_lon
 client = Uber::Client.new do |config|
   config.client_id     = "YOUR_CLIENT_ID"
   config.client_secret = "YOUR_CLIENT_SECRET"
-  config.bearer_toekn  = "USER_ACCESS_TOKEN"
+  config.bearer_token  = "USER_ACCESS_TOKEN"
 end
 
 # Only available in sandbox environment
@@ -115,7 +115,7 @@ client.trip_request(product_id: product_id, start_latitude: start_lat, start_lon
 client = Uber::Client.new do |config|
   config.client_id     = "YOUR_CLIENT_ID"
   config.client_secret = "YOUR_CLIENT_SECRET"
-  config.bearer_toekn  = "USER_ACCESS_TOKEN"
+  config.bearer_token  = "USER_ACCESS_TOKEN"
 end
 
 # Only available in sandbox environment
@@ -132,7 +132,7 @@ client.trip_request(product_id: product_id, start_latitude: start_lat, start_lon
 client = Uber::Client.new do |config|
   config.client_id     = "YOUR_CLIENT_ID"
   config.client_secret = "YOUR_CLIENT_SECRET"
-  config.bearer_toekn  = "USER_ACCESS_TOKEN"
+  config.bearer_token  = "USER_ACCESS_TOKEN"
 end
 
 # Only available in sandbox environment
@@ -148,7 +148,7 @@ client.trip_update('request_id', 'accepted')
 client = Uber::Client.new do |config|
   config.client_id     = "YOUR_CLIENT_ID"
   config.client_secret = "YOUR_CLIENT_SECRET"
-  config.bearer_toekn  = "USER_ACCESS_TOKEN"
+  config.bearer_token  = "USER_ACCESS_TOKEN"
 end
 
 client.trip_details 'request_id'
@@ -160,7 +160,7 @@ client.trip_details 'request_id'
 client = Uber::Client.new do |config|
   config.client_id     = "YOUR_CLIENT_ID"
   config.client_secret = "YOUR_CLIENT_SECRET"
-  config.bearer_toekn  = "USER_ACCESS_TOKEN"
+  config.bearer_token  = "USER_ACCESS_TOKEN"
 end
 
 client.trip_cancel 'request_id'
