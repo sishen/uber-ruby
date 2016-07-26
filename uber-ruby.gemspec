@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.version       = Uber::Version
   spec.authors       = ["Dingding Ye", "Christopher EnyTC"]
   spec.email         = ["yedingding@gmail.com", "chris@enytc.com"]
-  spec.summary       = "The Uber Ruby Gem."
+  spec.summary       = "Uber SDK for Ruby."
   spec.description   = "A Ruby interface to the Uber API."
   spec.homepage      = "https://github.com/sishen/uber-ruby"
   spec.license       = "MIT"
