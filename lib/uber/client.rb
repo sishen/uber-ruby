@@ -15,8 +15,8 @@ module Uber
     attr_accessor :sandbox
 
     attr_writer :connection_options, :middleware
-    ENDPOINT = "https://api.uber.com".freeze
-    SANDBOX_ENDPOINT = "https://sandbox-api.uber.com".freeze
+    ENDPOINT = "https://api.uber.com"
+    SANDBOX_ENDPOINT = "https://sandbox-api.uber.com"
 
     def initialize(options = {})
       options.each do |key, value|

@@ -6,7 +6,7 @@ module Uber
     attr_accessor :access_token, :token_type
     alias_method :to_s, :access_token
 
-    BEARER_TYPE = "bearer".freeze
+    BEARER_TYPE = "bearer"
 
     # @return [Boolean]
     def bearer?
