@@ -1,5 +1,9 @@
-require 'rspec'
-require 'webmock/rspec'
+# frozen_string_literal: true
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
+
+require "rspec"
+require "webmock/rspec"
 
 Dir[File.join(File.dirname(__FILE__), "./support/**/*.rb")].each do |f|
   require f

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Uber
   class ApiRequest
     attr_accessor :client, :request_method, :path, :options
@@ -30,7 +31,7 @@ module Uber
     # @param klass [Class]
     # @return [Array]
     def perform_with_objects(klass)
-      perform.values.flatten.collect do |element|
+      perform.values.flatten.map do |element|
         klass.new(element)
       end
     end

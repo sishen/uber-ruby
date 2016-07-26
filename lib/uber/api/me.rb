@@ -1,6 +1,7 @@
-require 'uber/arguments'
-require 'uber/api_request'
-require 'uber/models/user'
+# frozen_string_literal: true
+require "uber/arguments"
+require "uber/api_request"
+require "uber/models/user"
 
 module Uber
   module API

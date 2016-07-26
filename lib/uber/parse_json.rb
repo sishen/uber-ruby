@@ -1,5 +1,6 @@
-require 'faraday'
-require 'json'
+# frozen_string_literal: true
+require "faraday"
+require "json"
 
 module Uber
   module Response
@@ -11,12 +12,15 @@ module Uber
         when WHITESPACE_REGEX, nil
           nil
         else
-          JSON.parse(body, :symbolize_names => true)
+          JSON.parse(body, symbolize_names: true)
         end
       end
 
       def on_complete(response)
-        response.body = parse(response.body) if respond_to?(:parse) && !unparsable_status_codes.include?(response.status)
+        if respond_to?(:parse) &&
+           !unparsable_status_codes.include?(response.status)
+          response.body = parse(response.body)
+        end
       end
 
       def unparsable_status_codes
@@ -26,4 +30,4 @@ module Uber
   end
 end
 
-Faraday::Response.register_middleware :parse_json => Uber::Response::ParseJson
+Faraday::Response.register_middleware parse_json: Uber::Response::ParseJson

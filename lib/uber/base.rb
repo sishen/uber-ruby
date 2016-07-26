@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Uber
   class Base
     attr_reader :attrs

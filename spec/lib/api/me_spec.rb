@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "spec_helper"
 require "uber"
 
@@ -5,16 +6,17 @@ describe Uber::API::Me do
   let!(:client) { setup_client }
 
   before do
-    stub_uber_request(:get, "v1/me",
-                      # From: https://developer.uber.com/v1/endpoints/#user-profile
-                      {
-                        "first_name" => "Uber",
-                        "last_name" => "Developer",
-                        "email" => "developer@uber.com",
-                        "picture" => "https://cloudfront.net/deadbeef.jpg",
-                        "promo_code" => "teypo",
-                        "uuid" => "91d81273-45c2-4b57-8124-d0165f8240c0"
-                      })
+    stub_uber_request(
+      :get,
+      "v1/me",
+      # From: https://developer.uber.com/v1/endpoints/#user-profile
+      "first_name" => "Uber",
+      "last_name" => "Developer",
+      "email" => "developer@uber.com",
+      "picture" => "https://cloudfront.net/deadbeef.jpg",
+      "promo_code" => "teypo",
+      "uuid" => "91d81273-45c2-4b57-8124-d0165f8240c0"
+    )
   end
 
   it "should return the user profile" do

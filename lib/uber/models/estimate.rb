@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Uber
   class Estimate < Base
     attr_accessor :pickup_estimate, :price, :trip, :errors
@@ -12,18 +13,27 @@ module Uber
 
     def humanized_estimate
       unless pickup_estimate.nil?
-        pickup_estimate.to_i == 1 ? "#{pickup_estimate} minute" : "#{pickup_estimate} minutes"
+        if pickup_estimate.to_i == 1
+          "#{pickup_estimate} minute"
+        else
+          "#{pickup_estimate} minutes"
+        end
       end
     end
   end
 
   class Price < Base
-    attr_accessor :surge_confirmation_href, :surge_confirmation_id, :high_estimate, :low_estimate, :minimum, :surge_multiplier, :display, :currency_code
+    attr_accessor :surge_confirmation_href,
+                  :surge_confirmation_id,
+                  :high_estimate,
+                  :low_estimate,
+                  :minimum,
+                  :surge_multiplier,
+                  :display,
+                  :currency_code
   end
 
   class Trip < Base
     attr_accessor :distance_unit, :duration_estimate, :distance_estimate
   end
-
 end
-
