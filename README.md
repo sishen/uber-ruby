@@ -6,15 +6,21 @@
 
 Add this line to your application's Gemfile:
 
-    gem 'uber-ruby', require: 'uber'
+```ruby
+gem 'uber-ruby', require: 'uber'
+```
 
 And then execute:
 
-    $ bundle
+```bash
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install uber-ruby
+```bash
+$ gem install uber-ruby
+```
 
 ## Configuration
 
@@ -169,6 +175,7 @@ client.trip_cancel 'request_id'
 ## Contributors
 
 * [Arun Thampi](https://github.com/arunthampi)
+* [Christopher EnyTC](https://github.com/chrisenytc)
 
 ## Contributing
 
@@ -177,3 +184,7 @@ client.trip_cancel 'request_id'
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## License
+
+Check [here](LICENSE.txt)
