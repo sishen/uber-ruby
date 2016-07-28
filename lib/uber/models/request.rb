@@ -23,16 +23,12 @@ module Uber
       @location = value.nil? ? nil : Location.new(value)
     end
 
-    def error=(value)
-      @error = value.nil? ? nil : RequestError.new(value)
-    end
-
     def errors=(values)
       @errors = values.map { |v| RequestError.new(v) }
     end
 
     def errors?
-      @errors && @errors.size >= 1 || @error && @error.key?("code")
+      @errors && @errors.size >= 1
     end
 
     def vehicle_name
@@ -53,7 +49,7 @@ module Uber
   end
 
   class RequestError < Base
-    attr_accessor :status, :code, :title, :message
+    attr_accessor :status, :code, :title
   end
 
   class Driver < Base
