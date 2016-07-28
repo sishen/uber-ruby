@@ -6,6 +6,30 @@ describe Uber::API::Requests do
   let!(:client) { setup_client }
 
   describe "#trip_estimate" do
+    context "with a error response" do
+      before do
+        stub_uber_request(
+          :post,
+          "v1/requests/estimate",
+          # From: https://developer.uber.com/docs/v1-requests-estimate
+          {
+            "code" => "current_trip_exists",
+            "message" => "Trip estimates not allowed while the user is currently on a trip." # rubocop:disable Metrics/LineLength
+          },
+          body: { product_id: "deadbeef", start_latitude: 0.0, start_longitude: 0.5, end_latitude: 0.0, end_longitude: 0.6 }.to_json, # rubocop:disable Metrics/LineLength
+          status_code: 403
+        )
+      end
+
+      it "should submit a request estimate and return a error" do
+        request = client.trip_estimate(product_id: "deadbeef", start_latitude: 0.0, start_longitude: 0.5, end_latitude: 0.0, end_longitude: 0.6) # rubocop:disable Metrics/LineLength
+
+        expect(request.code).to eql "current_trip_exists"
+        expect(request.message).to eql "Trip estimates not allowed while the user is currently on a trip." # rubocop:disable Metrics/LineLength
+        expect(request.errors?).to be true
+      end
+    end
+
     context "with a valid response" do
       before do
         stub_uber_request(
