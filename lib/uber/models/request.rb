@@ -2,6 +2,7 @@
 module Uber
   class Request < Base
     attr_accessor :request_id,
+                  :product_id,
                   :status,
                   :vehicle,
                   :driver,
