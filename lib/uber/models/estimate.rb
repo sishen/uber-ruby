@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Uber
   class Estimate < Base
-    attr_accessor :pickup_estimate, :price, :trip, :code, :message
+    attr_accessor :pickup_estimate, :price, :trip, :errors, :code, :message
 
     def price=(value)
       @price = value.nil? ? nil : Price.new(value)
@@ -11,8 +11,14 @@ module Uber
       @trip = value.nil? ? nil : Trip.new(value)
     end
 
+    def errors=(values)
+      @errors = values.map { |v| RequestError.new(v) }
+    end
+
     def errors?
-      @code && !@code.empty? && @message && !@message.empty?
+      multi_errors = @errors && @errors.size >= 1
+      single_error = @code && !@code.empty? && @message && !@message.empty?
+      multi_errors || single_error
     end
 
     def humanized_estimate
@@ -24,6 +30,10 @@ module Uber
         end
       end
     end
+  end
+
+  class RequestError < Base
+    attr_accessor :status, :code, :title
   end
 
   class Price < Base
