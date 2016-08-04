@@ -1,0 +1,36 @@
+CommitMsg:
+  SingleLineSubject:
+    enabled: true
+  MessageFormat:
+    enabled: false
+  RussianNovel:
+    enabled: true
+  HardTabs:
+      enabled: true
+  EmptyMessage:
+      enabled: true
+  CapitalizedSubject:
+      enabled: true
+  TrailingPeriod:
+      enabled: true
+PreCommit:
+  AuthorEmail:
+    enabled: true
+  AuthorName:
+    enabled: true
+  BundleOutdated:
+    enabled: true
+  BrokenSymlinks:
+    enabled: true
+  CaseConflicts:
+      enabled: true
+  MergeConflicts:
+      enabled: true
+  TravisLint:
+      enabled: true
+  RuboCop:
+    enabled: true
+    command: ["rubocop", "-a", "**/*.rb **/*.rake Gemfile Rakefile"]
+PostCommit:
+  GitGuilt:
+    enabled: false

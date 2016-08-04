@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Uber
   class Arguments < Array
     attr_reader :options

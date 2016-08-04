@@ -1,4 +1,5 @@
-require 'uber/rate_limit'
+# frozen_string_literal: true
+require "uber/rate_limit"
 
 module Uber
   # Custom error class for rescuing from all Uber errors
@@ -6,7 +7,7 @@ module Uber
     attr_reader :code, :rate_limit
 
     module Code
-      AUTHENTICATION_PROBLEM       =  32
+      AUTHENTICATION_PROBLEM = 32
       MALFORMED_REQUEST            = 400
       UNAUTHORIZED_REQUEST         = 401
       REQUEST_FORBIDDEN            = 403
@@ -16,7 +17,8 @@ module Uber
       RATE_LIMIT_EXCEEDED          = 429
       INTERVAL_ERROR               = 500
     end
-    Codes = Code # rubocop:disable ConstantName
+
+    Codes = Code
 
     class << self
       # Create a new error from an HTTP response
@@ -42,11 +44,11 @@ module Uber
         }
       end
 
-    private
+      private
 
       def parse_error(body)
         if body.nil?
-          ['', nil]
+          ["", nil]
         elsif body[:error]
           [body[:error], nil]
         elsif body[:errors]
@@ -70,7 +72,7 @@ module Uber
     # @param rate_limit [Hash]
     # @param code [Integer]
     # @return [Uber::Error]
-    def initialize(message = '', rate_limit = {}, code = nil)
+    def initialize(message = "", rate_limit = {}, code = nil)
       super(message)
       @rate_limit = Uber::RateLimit.new(rate_limit)
       @code = code

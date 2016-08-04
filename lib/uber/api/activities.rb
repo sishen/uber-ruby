@@ -1,6 +1,7 @@
-require 'uber/arguments'
-require 'uber/api_request'
-require 'uber/models/activity'
+# frozen_string_literal: true
+require "uber/arguments"
+require "uber/api_request"
+require "uber/models/activity"
 
 module Uber
   module API

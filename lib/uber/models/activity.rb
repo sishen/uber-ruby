@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Uber
   class Activity < Base
     attr_accessor :offset, :limit, :count, :histories
@@ -8,7 +9,15 @@ module Uber
   end
 
   class History < Base
-    attr_accessor :request_time, :product_id, :status, :distance, :start_time, :end_time, :start_city, :request_id
+    attr_accessor :request_time,
+                  :product_id,
+                  :status,
+                  :distance,
+                  :start_time,
+                  :end_time,
+                  :start_city,
+                  :request_id
+
     alias_method :uuid, :request_id
 
     def request_time=(value)

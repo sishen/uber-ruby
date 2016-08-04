@@ -1,20 +1,30 @@
-# The Uber Ruby Gem
+# Uber SDK for Ruby
 
 > A Ruby interface to the Uber API.
+
+## Status
+
+# [![Build Status](https://img.shields.io/travis/sishen/uber-ruby/master.svg?maxAge=2592000g)](http://travis-ci.org/sishen/uber-ruby) [![Maintenance](https://img.shields.io/maintenance/yes/2016.svg?maxAge=2592000)]() [![Gem](https://img.shields.io/gem/dt/uber-ruby.svg?maxAge=2592000)](http://rubygems.org/gems/uber-ruby) [![Code Climate](https://codeclimate.com/github/sishen/uber-ruby/badges/gpa.svg)](https://codeclimate.com/github/sishen/uber-ruby) [![Gem](https://img.shields.io/gem/v/uber-ruby.svg?maxAge=2592000)]() [![License](https://img.shields.io/github/license/sishen/uber-ruby.svg?maxAge=2592000)](https://github.com/sishen/uber-ruby/blob/master/LICENSE.txt) [![GitHub stars](https://img.shields.io/github/stars/sishen/uber-ruby.svg?style=social&label=Star&maxAge=2592000)](https://github.com/sishen/uber-ruby) [![GitHub watchers](https://img.shields.io/github/watchers/sishen/uber-ruby.svg?style=social&label=Watch&maxAge=2592000)](https://github.com/sishen/uber-ruby)
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'uber-ruby', require: 'uber'
+```ruby
+gem 'uber-ruby', require: 'uber'
+```
 
 And then execute:
 
-    $ bundle
+```bash
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install uber-ruby
+```bash
+$ gem install uber-ruby
+```
 
 ## Configuration
 
@@ -169,6 +179,7 @@ client.trip_cancel 'request_id'
 ## Contributors
 
 * [Arun Thampi](https://github.com/arunthampi)
+* [Christopher EnyTC](https://github.com/chrisenytc)
 
 ## Contributing
 
@@ -177,3 +188,7 @@ client.trip_cancel 'request_id'
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## License
+
+Check [here](LICENSE.txt)

@@ -1,5 +1,6 @@
-require 'uber/arguments'
-require 'uber/api_request'
+# frozen_string_literal: true
+require "uber/arguments"
+require "uber/api_request"
 
 module Uber
   module Utils
