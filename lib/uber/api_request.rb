@@ -17,21 +17,32 @@ module Uber
 
     # @return [Hash]
     def perform
-      @client.send(@request_method, @path, @options).body
+      @client.send(@request_method, @path, @options)
     end
 
     # @param klass [Class]
     # @param request [Uber::ApiRequest]
     # @return [Object]
     def perform_with_object(klass)
-      klass.new(perform)
+      result = perform
+      if result.status == 200
+        klass.new(result.body)
+      else
+        raise Uber::Error::UnprocessableEntity.new(result.body)
+      end
     end
 
     # @param klass [Class]
     # @return [Array]
     def perform_with_objects(klass)
-      perform.values.flatten.collect do |element|
-        klass.new(element)
+      result = perform
+
+      if result.status == 200
+        result.body.values.flatten.collect do |element|
+          klass.new(element)
+        end
+      else
+        raise Uber::Error::UnprocessableEntity.new(result.body.values.flatten.last)
       end
     end
   end
