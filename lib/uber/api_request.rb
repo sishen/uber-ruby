@@ -25,7 +25,7 @@ module Uber
     # @return [Object]
     def perform_with_object(klass)
       result = perform
-      if result.status == 200
+      if result.status == 200 || result.status == 202 || result.status == 204
         klass.new(result.body)
       else
         raise Uber::Error::UnprocessableEntity.new(result.body)
