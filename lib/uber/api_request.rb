@@ -25,10 +25,11 @@ module Uber
     # @return [Object]
     def perform_with_object(klass)
       result = perform
-      if result.status == 200 || result.status == 202 || result.status == 204
-        klass.new(result.body)
+      # https://developer.uber.com/docs/rides/api/v1-requests#http-error-codes
+      if [400, 403, 404, 409, 422, 500].include?(result.status)
+        raise Uber::Error::BadRequest.new(result.body)
       else
-        raise Uber::Error::UnprocessableEntity.new(result.body)
+        klass.new(result.body)
       end
     end
 
@@ -37,12 +38,12 @@ module Uber
     def perform_with_objects(klass)
       result = perform
 
-      if result.status == 200
+      if [400, 403, 404, 409, 422, 500].include?(result.status)
+        raise Uber::Error::BadRequest.new(result.body.values.flatten.last)
+      else
         result.body.values.flatten.collect do |element|
           klass.new(element)
         end
-      else
-        raise Uber::Error::UnprocessableEntity.new(result.body.values.flatten.last)
       end
     end
   end
