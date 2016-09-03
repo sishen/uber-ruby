@@ -124,6 +124,8 @@ describe Uber::API::Products do
         expect(products[0].price_details.class).to be Hash
         expect(products[0].shared).to be true
         expect(products[0].cash_enabled).to be true
+        expect(products[0].shared?).to be true
+        expect(products[0].cash_enabled?).to be true
 
         expect(products[1].capacity).to eql 6
         expect(products[1].description).to eql "low-cost rides for large groups"
@@ -160,6 +162,8 @@ describe Uber::API::Products do
         expect(products[4].price_details).to be nil
         expect(products[4].shared).to be false
         expect(products[4].cash_enabled).to be false
+        expect(products[4].shared?).to be false
+        expect(products[4].cash_enabled?).to be false
       end
     end
   end
