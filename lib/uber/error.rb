@@ -30,7 +30,8 @@ module Uber
 
       def from_error(error)
         message, code = parse_error((JSON.parse(error.response[:body]) rescue nil), error.response[:status])
-        new(message, error.response[:headers], code)
+        error_base_klass = errors[code] || self
+        error_base_klass.new(message, error.response[:headers], code)
       end
 
       # @return [Hash]

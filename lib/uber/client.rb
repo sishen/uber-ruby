@@ -138,10 +138,7 @@ module Uber
     rescue Faraday::Error::TimeoutError, Timeout::Error => error
       raise(Uber::Error::RequestTimeout.new(error))
     rescue Faraday::Error::ClientError, Faraday::Error::ResourceNotFound, Faraday::Error::ConnectionFailed, JSON::ParserError => error
-      # TODO: check if I can just handle Faraday::Error
-      #debugger
       raise Uber::Error.from_error error
-      # fail(Uber::Error.new(error))
     end
 
     def request_headers(method, path, params = {}, signature_params = params)
