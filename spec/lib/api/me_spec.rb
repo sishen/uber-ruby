@@ -13,7 +13,8 @@ describe Uber::API::Me do
                         "email" => "developer@uber.com",
                         "picture" => "https://cloudfront.net/deadbeef.jpg",
                         "promo_code" => "teypo",
-                        "uuid" => "91d81273-45c2-4b57-8124-d0165f8240c0"
+                        "uuid" => "91d81273-45c2-4b57-8124-d0165f8240c0",
+                        "mobile_verified" => true
                       })
   end
 
@@ -25,5 +26,7 @@ describe Uber::API::Me do
     expect(profile.picture).to eql "https://cloudfront.net/deadbeef.jpg"
     expect(profile.promo_code).to eql "teypo"
     expect(profile.uuid).to eql "91d81273-45c2-4b57-8124-d0165f8240c0"
+    expect(profile.mobile_verified).to be true
+    expect(profile.mobile_verified?).to be true
   end
 end
