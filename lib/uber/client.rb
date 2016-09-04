@@ -59,6 +59,9 @@ module Uber
         faraday.request :url_encoded
         # Parse JSON response bodies
         faraday.response :parse_json
+        faraday.response :logger
+        # Include Faraday::Response::RaiseError
+        faraday.response :raise_error if defined?(Faraday::Response::RaiseError)
         # Use instrumentation if available
         faraday.use :instrumentation if defined?(FaradayMiddleware::Instrumentation)
         # Set default HTTP adapter
@@ -134,8 +137,11 @@ module Uber
       connection.send(method.to_sym, path, params) { |request| request.headers.update(headers) }.env
     rescue Faraday::Error::TimeoutError, Timeout::Error => error
       raise(Uber::Error::RequestTimeout.new(error))
-    rescue Faraday::Error::ClientError, JSON::ParserError => error
-      fail(Uber::Error.new(error))
+    rescue Faraday::Error::ClientError, Faraday::Error::ResourceNotFound, Faraday::Error::ConnectionFailed, JSON::ParserError => error
+      # TODO: check if I can just handle Faraday::Error
+      #debugger
+      raise Uber::Error.from_error error
+      # fail(Uber::Error.new(error))
     end
 
     def request_headers(method, path, params = {}, signature_params = params)

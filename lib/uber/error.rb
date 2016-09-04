@@ -28,6 +28,11 @@ module Uber
         new(message, response.response_headers, code)
       end
 
+      def from_error(error)
+        message, code = parse_error((JSON.parse(error.response[:body]) rescue nil), error.response[:status])
+        new(message, error.response[:headers], code)
+      end
+
       # @return [Hash]
       def errors
         @errors ||= {
@@ -44,11 +49,13 @@ module Uber
 
     private
 
-      def parse_error(body)
+      def parse_error(body, status_code=nil)
         if body.nil?
           ['', nil]
         elsif body[:error]
           [body[:error], nil]
+        elsif body[:message] || body['message']
+          [body[:message] || body['message'], status_code]
         elsif body[:errors]
           extract_message_from_errors(body)
         end
