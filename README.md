@@ -26,6 +26,19 @@ client = Uber::Client.new do |config|
 end
 ```
 
+### Sandbox mode
+The Uber API Sandbox provides development endpoints for testing the functionality of an application without making calls to the production Uber platform. All requests made to the Sandbox environment will be ephemeral.
+
+```ruby
+client = Uber::Client.new do |config|
+  config.server_token  = "YOUR_SERVER_TOKEN"
+  config.client_id     = "YOUR_CLIENT_ID"
+  config.client_secret = "YOUR_CLIENT_SECRET"
+  config.sandbox       = true
+end
+# More info here https://developer.uber.com/docs/sandbox#section-product-types
+```
+
 ## Usage
 
 ### Request Products
