@@ -179,6 +179,34 @@ end
 client.trip_cancel 'request_id'
 ```
 
+### Retrieve addresses
+Retrieves address information of _home_ or _work_.
+
+```ruby
+client = Uber::Client.new do |config|
+  config.client_id     = "YOUR_CLIENT_ID"
+  config.client_secret = "YOUR_CLIENT_SECRET"
+  config.bearer_token  = "USER_ACCESS_TOKEN"
+end
+
+place = client.places 'home'
+place.address #=> retuns fully qualified address of location
+```
+
+### Update addresses
+Updates address information of _home_ or _work_.
+```ruby
+client = Uber::Client.new do |config|
+  config.client_id     = "YOUR_CLIENT_ID"
+  config.client_secret = "YOUR_CLIENT_SECRET"
+  config.bearer_token  = "USER_ACCESS_TOKEN"
+end
+
+place = client.place_update 'home', 'my address'
+place.address #=> retuns fully qualified address of location
+```
+
+
 ## Contributors
 
 * [Arun Thampi](https://github.com/arunthampi)
