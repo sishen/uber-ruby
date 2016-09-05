@@ -18,7 +18,7 @@ module Uber
   end
 
   class Price < Base
-    attr_accessor :surge_confirmation_href, :surge_confirmation_id, :high_estimate, :low_estimate, :minimum, :surge_multiplier, :display, :currency_code
+    attr_accessor :surge_confirmation_href, :surge_confirmation_id, :high_estimate, :low_estimate, :minimum, :surge_multiplier, :display, :currency_code, :fare_breakdown
   end
 
   class Trip < Base
