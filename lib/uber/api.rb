@@ -4,6 +4,7 @@ require 'uber/api/time_estimates'
 require 'uber/api/activities'
 require 'uber/api/me'
 require 'uber/api/promotions'
+require 'uber/api/reminders.rb'
 require 'uber/api/requests'
 require 'uber/api/places'
 
@@ -17,6 +18,7 @@ module Uber
     include Uber::API::Me
     include Uber::API::Promotions
     include Uber::API::Places
+    include Uber::API::Reminders
     include Uber::API::Requests
   end
 end
