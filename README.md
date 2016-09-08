@@ -216,6 +216,7 @@ client = Uber::Client.new do |config|
   client.server_token  = "YOUR_SERVER_TOKEN"
 end
 client.reminder 'reminder_id'
+#=> Uber::Reminder
 ```
 
 ### Add a reminder
@@ -227,7 +228,11 @@ reminder = client.add_reminder({reminder_time: Time.local(2016, 9, 8, 23, 23, 23
                                 event: {time: Time.now + 234234},
                                 reminder_id: 'rem1' })
 reminder.event.time
+#=> 2016-09-11 11:02:06 UTC
 reminder.reminder_time
+#=> 2016-09-08 17:53:23 UTC
+reminder.reminder_stauts
+#=> "pending"
 ```
 
 ### Update a reminder
@@ -239,6 +244,7 @@ reminder = client.add_reminder('rem1', {reminder_time: Time.local(2016, 9, 10, 2
                                         event: {time: Time.now + 234234},
                                         reminder_id: 'rem1' })
 reminder.trip_branding.link_text
+#=> "My edited reminder"
 
 ```
 
@@ -246,6 +252,7 @@ reminder.trip_branding.link_text
 This allows you to remove any reminder in the pending state from being sent.
 ```ruby
 reminder.delete_reminder 'rem1'
+#=> Uber::Reminder
 ```
 
 
