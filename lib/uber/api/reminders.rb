@@ -15,9 +15,9 @@ module Uber
         perform_with_object(:post, "/v1/reminders", arguments.options, Reminder)
       end
 
-      def update_reminder(*args)
+      def update_reminder(reminder_id, *args)
         arguments = sanitize_time(Uber::Arguments.new(args))
-        perform_with_object(:patch, "/v1/reminders", arguments.options, Reminder)
+        perform_with_object(:patch, "/v1/reminders/#{reminder_id}", arguments.options, Reminder)
       end
 
       def delete_reminder(reminder_id)

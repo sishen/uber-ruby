@@ -9,14 +9,22 @@ module Uber
     def trip_branding=(value)
       @trip_branding = value && TripBranding.new(value)
     end
-  end
 
-  class Event < Base
-    attr_accessor :name, :location, :latitude, :longitude, :time
-  end
+    def reminder_time
+      @reminder_time && ::Time.at(@reminder_time)
+    end
 
-  class TripBranding < Base
-    attr_accessor :link_text, :partner_deeplink
+    class Event < Base
+      attr_accessor :name, :location, :latitude, :longitude, :time
+
+      def time
+        @time && ::Time.at(@time)
+      end
+    end
+
+    class TripBranding < Base
+      attr_accessor :link_text, :partner_deeplink
+    end
   end
 
 end
