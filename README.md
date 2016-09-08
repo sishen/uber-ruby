@@ -206,6 +206,48 @@ place = client.place_update 'home', 'my address'
 place.address #=> retuns fully qualified address of location
 ```
 
+### Retrieve a reminder
+This allows you to get the status of an existing ride reminder.    
+**Note**: It only supports _server_token_. 
+```ruby
+client = Uber::Client.new do |config|
+  config.client_id     = "YOUR_CLIENT_ID"
+  config.client_secret = "YOUR_CLIENT_SECRET"
+  client.server_token  = "YOUR_SERVER_TOKEN"
+end
+client.reminder 'reminder_id'
+```
+
+### Add a reminder
+This allows developers to set a reminder for a future trip. You can pass object of `Time` or _unixtime_ in `reminder_time` and `event.time`.
+```ruby
+reminder = client.add_reminder({reminder_time: Time.local(2016, 9, 8, 23, 23, 23),
+                                phone_number: '+91-9999999999',
+                                trip_branding: {link_text: 'My first reminder'},
+                                event: {time: Time.now + 234234},
+                                reminder_id: 'rem1' })
+reminder.event.time
+reminder.reminder_time
+```
+
+### Update a reminder
+This allows you to update an existing reminder.
+```ruby
+reminder = client.add_reminder('rem1', {reminder_time: Time.local(2016, 9, 10, 23, 23, 23),
+                                        phone_number: '+91-9999999999',
+                                        trip_branding: {link_text: 'My edited reminder'},
+                                        event: {time: Time.now + 234234},
+                                        reminder_id: 'rem1' })
+reminder.trip_branding.link_text
+
+```
+
+### Delete a reminder
+This allows you to remove any reminder in the pending state from being sent.
+```ruby
+reminder.delete_reminder 'rem1'
+```
+
 
 ## Contributors
 
