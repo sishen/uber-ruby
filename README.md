@@ -231,7 +231,7 @@ reminder.event.time
 #=> 2016-09-11 11:02:06 UTC
 reminder.reminder_time
 #=> 2016-09-08 17:53:23 UTC
-reminder.reminder_stauts
+reminder.reminder_status
 #=> "pending"
 ```
 
