@@ -7,21 +7,21 @@ describe Uber::API::Reminders do
   describe "get reminder" do
     before do
       # From: https://developer.uber.com/docs/rides/api/v1-reminders-get
-      stub_uber_request(:get, 'v1/reminders/my_reminder',
+      stub_uber_request(:get, 'v1/reminders/48ee034e-311d-41ea-9794-02fc8dcd8696',
                         {"reminder_status"=>"pending", "reminder_id"=>"48ee034e-311d-41ea-9794-02fc8dcd8696", "reminder_time"=>1473296851,
                          "event"=>{"latitude"=>nil, "time"=>1473507651, "name"=>nil, "longitude"=>nil, "location"=>nil}, "product_id"=>{}}
       )
     end
 
     it "should return details about reminder" do
-      reminder = client.reminder('my_reminder')
+      reminder = client.reminder('48ee034e-311d-41ea-9794-02fc8dcd8696')
       expect(reminder).to be_instance_of Uber::Reminder
       expect(reminder.event).to be_instance_of Uber::Reminder::Event
       expect(reminder.reminder_id).to eq "48ee034e-311d-41ea-9794-02fc8dcd8696"
     end
 
     it "should also respond to reminder_detail" do
-      reminder = client.reminder_detail('my_reminder')
+      reminder = client.reminder_detail('48ee034e-311d-41ea-9794-02fc8dcd8696')
       expect(reminder).to be_instance_of Uber::Reminder
       expect(reminder.event).to be_instance_of Uber::Reminder::Event
       expect(reminder.reminder_id).to eq "48ee034e-311d-41ea-9794-02fc8dcd8696"
