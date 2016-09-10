@@ -78,6 +78,9 @@ module Uber
 
     class ClientError < self; end
 
+    # Raised when Uber requests are timed-out
+    class RequestTimeout < ClientError; end
+
     class ConfigurationError < ::ArgumentError; end
 
     # Raised when Uber returns the HTTP status code 400
