@@ -335,4 +335,22 @@ describe Uber::API::Requests do
       expect(request.class).to eql Uber::Request
     end
   end
+
+  describe 'client' do
+    let!(:client) { setup_client }
+    let!(:debug_client) { setup_client(debug: true) }
+
+    it 'should not have logger middleware when debug option is not passed' do
+      client.send(:connection).builder.handlers.should_not include Faraday::Response::Logger
+    end
+
+    it 'should have logger middleware when debug option is passed' do
+      debug_client.send(:connection).builder.handlers.should include Faraday::Response::Logger
+    end
+
+    it 'should include Uber::Response::ParseJson middleware in both clients' do
+      client.send(:connection).builder.handlers.should include Uber::Response::ParseJson
+      debug_client.send(:connection).builder.handlers.should include Uber::Response::ParseJson
+    end
+  end
 end

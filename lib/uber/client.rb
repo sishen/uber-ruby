@@ -12,6 +12,7 @@ module Uber
     attr_accessor :server_token, :client_id, :client_secret
     attr_accessor :bearer_token
     attr_accessor :sandbox
+    attr_accessor :debug
 
     attr_writer :connection_options, :middleware
     ENDPOINT = 'https://api.uber.com'
@@ -59,6 +60,7 @@ module Uber
         faraday.request :url_encoded
         # Parse JSON response bodies
         faraday.response :parse_json
+        faraday.response :logger if self.debug
         # Use instrumentation if available
         faraday.use :instrumentation if defined?(FaradayMiddleware::Instrumentation)
         # Set default HTTP adapter

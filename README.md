@@ -39,6 +39,9 @@ end
 # More info here https://developer.uber.com/docs/sandbox#section-product-types
 ```
 
+## Debug mode
+Add `config.debug = true` to log HTTP request-response headers while making API requests.
+
 ## Usage
 
 ### Request Products

@@ -4,7 +4,8 @@ module ClientHelpers
   def setup_client(opts = {})
     Uber::Client.new do |c|
       c.bearer_token = 'UBER_BEARER_TOKEN'
-      c.sandbox = opts[:sandbox]
+      c.sandbox      = opts[:sandbox]
+      c.debug        = opts[:debug]
     end
   end
 
