@@ -9,7 +9,7 @@ describe Uber::API::Places do
   end
 
   it 'should return information about place' do
-    place_request = client.places('home')
+    place_request = client.place('home')
     expect(place_request.class).to eql Uber::Place
     expect(place_request.address).to eql 'Mumbai, India'
   end

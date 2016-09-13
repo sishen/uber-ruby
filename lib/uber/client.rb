@@ -92,6 +92,12 @@ module Uber
       request(:delete, path, params, headers)
     end
 
+    # Perform an HTTP PATCH request
+    def patch(path, params={})
+      headers = params.values.any? { |value| value.respond_to?(:to_io) } ? request_headers(:post, path, params, {}) : request_headers(:patch, path, params)
+      request(:patch, path, params.to_json, headers)
+    end
+
     # @return [Boolean]
     def bearer_token?
       !!bearer_token
