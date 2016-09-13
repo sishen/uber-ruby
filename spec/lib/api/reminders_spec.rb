@@ -34,25 +34,26 @@ describe Uber::API::Reminders do
       @time_now = Time.at(1473275408)
       stub_uber_request(:post, 'v1/reminders',
                         {
-                            reminder_time: 1473357203,
-                            phone_number: '+91-9999999999',
-                            event: {time: 1473509642},
-                            trip_branding: {link_text: 'My first reminder'},
-                            reminder_id: 'rem1',
-                            reminder_status: 'pending',
-                            product_id: {}
+                          reminder_time: 1473377003,
+                          phone_number: '+91-9999999999',
+                          event: {time: 1473509642},
+                          trip_branding: {link_text: 'My first reminder'},
+                          reminder_id: 'rem1',
+                          reminder_status: 'pending',
+                          product_id: {}
                         },
-                        :body => {
-                            reminder_time: 1473357203,
-                            phone_number: '+91-9999999999',
-                            event: {time: 1473509642},
-                            trip_branding: {link_text: 'My first reminder'},
-                            reminder_id: 'rem1'
-                        })
+                        body: {
+                          reminder_time: 1473377003,
+                          phone_number: '+91-9999999999',
+                          trip_branding: {link_text: 'My first reminder'},
+                          event: {time: 1473509642},
+                          reminder_id: 'rem1'
+                        }.to_json,
+                        status_code: 200)
     end
     it 'should return reminder with details' do
       allow(Time).to receive(:now).and_return(@time_now)
-      reminder = client.add_reminder({reminder_time: Time.local(2016, 9, 8, 23, 23, 23),
+      reminder = client.add_reminder({reminder_time: Time.utc(2016, 9, 8, 23, 23, 23),
                                       phone_number: '+91-9999999999',
                                       trip_branding: {link_text: 'My first reminder'},
                                       event: {time: Time.now + 234234},
@@ -61,7 +62,7 @@ describe Uber::API::Reminders do
       expect(reminder.reminder_status).to eq 'pending'
       expect(reminder.event).to be_instance_of Uber::Reminder::Event
       expect(reminder.trip_branding).to be_instance_of Uber::Reminder::TripBranding
-      expect(reminder.reminder_time).to eq Time.local(2016, 9, 8, 23, 23, 23)
+      expect(reminder.reminder_time).to eq Time.utc(2016, 9, 8, 23, 23, 23)
       expect(reminder.event.time).to eq @time_now + 234234
       expect(reminder.reminder_id).to eq 'rem1'
     end
@@ -73,25 +74,23 @@ describe Uber::API::Reminders do
       @time_now = Time.at(1473275408)
       stub_uber_request(:patch, 'v1/reminders/rem1',
                         {
-                            reminder_time: 1473530003,
-                            phone_number: '+91-9999999999',
-                            trip_branding: {link_text: 'My first reminder'},
-                            event: {time: 1473509642},
-                            reminder_id: 'rem1',
-                            reminder_status: 'pending',
-                            product_id: {}
+                          reminder_time: 1473549803,
+                          phone_number: '+91-9999999999',
+                          trip_branding: {link_text: 'My first reminder'},
+                          event: {time: 1473509642},
+                          reminder_id: 'rem1',
+                          reminder_status: 'pending',
+                          product_id: {}
                         },
-                        :body => {
-                            reminder_time: 1473530003,
-                        }
+                        body: { reminder_time: 1473549803 }.to_json
       )
     end
     it 'should return updated reminder' do
       allow(Time).to receive(:now).and_return(@time_now)
-      reminder = client.update_reminder('rem1', {reminder_time: Time.local(2016, 9, 10, 23, 23, 23)})
+      reminder = client.update_reminder('rem1', {reminder_time: Time.utc(2016, 9, 10, 23, 23, 23)})
       expect(reminder).to be_instance_of Uber::Reminder
       expect(reminder.reminder_status).to eq 'pending'
-      expect(reminder.reminder_time).to eq Time.local(2016, 9, 10, 23, 23, 23)
+      expect(reminder.reminder_time).to eq Time.utc(2016, 9, 10, 23, 23, 23)
       expect(reminder.event.time).to eq @time_now + 234234
       expect(reminder.reminder_id).to eq 'rem1'
     end

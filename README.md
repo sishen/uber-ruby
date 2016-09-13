@@ -262,6 +262,7 @@ reminder.delete_reminder 'rem1'
 ## Contributors
 
 * [Arun Thampi](https://github.com/arunthampi)
+* [Ankur Goel](https://github.com/AnkurGel)
 
 ## Contributing
 
