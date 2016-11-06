@@ -117,6 +117,9 @@ module Uber
       credentials.values.all?
     end
 
+    def partners
+      @partners ||= Uber::Partner::Client.new self
+    end
     private
 
     # Ensures that all credentials set during configuration are
@@ -167,4 +170,15 @@ module Uber
       "Token #{@server_token}"
     end
   end
+
+  module Partner
+    class Client
+      include Uber::API::Partners
+      attr_reader :client
+      def initialize(client)
+        @client = client
+      end
+    end
+  end
+
 end
