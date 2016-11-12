@@ -20,6 +20,10 @@ module Uber
 
     class StatusChange < Base
       attr_accessor :status, :timestamp
+
+      def time
+        ::Time.at @timestamp if @timestamp
+      end
     end
   end
 end
