@@ -6,9 +6,8 @@ module Uber
   module API
     module Partners
       include Uber::Utils
-      def me(*args)
-        arguments = Uber::Arguments.new(args)
-        perform_with_object(:get, "v1/partners/me", arguments.options, Uber::Partner::Partner, self.client)
+      def me
+        perform_with_object(:get, "v1/partners/me", {}, Uber::Partner::Partner, self.client)
       end
 
       def payments(*args)
