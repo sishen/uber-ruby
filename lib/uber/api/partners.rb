@@ -19,6 +19,8 @@ module Uber
         arguments = Uber::Arguments.new(args)
         perform_with_object(:get, "/v1/partners/trips", arguments.options, Uber::Partner::TripActivity, self.client)
       end
+
+      alias_method :earnings, :payments
     end
   end
 end
