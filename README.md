@@ -258,6 +258,60 @@ reminder.delete_reminder 'rem1'
 #=> Uber::Reminder
 ```
 
+## Drivers API
+[Drivers API](https://developer.uber.com/docs/drivers/introduction) lets you build services and solutions that make the driver experience more productive and rewarding. With the driver's permission, you can use trip data, earnings, ratings and more to shape the future of the on-demand economy.   
+
+We provide this under namespace of `client.partners`
+
+### Driver details
+It returns the profile of the authenticated driver.
+> OAuth 2.0 bearer token with a partner.accounts scope.   
+ 
+```ruby
+driver = client.partners.me
+driver.first_name #=> 'John'
+driver.last_name #=> 'Driver'
+driver.promo_code #=> 'join_john_on_uber'
+```
+More details can be found [here](https://developer.uber.com/docs/drivers/references/api/v1/partners-me-get).
+
+### Earnings details
+It returns an array of payments for the given driver. Payments are available at this endpoint in near real-time.
+> OAuth 2.0 bearer token with scope partner.payments
+
+```ruby
+earnings = client.partners.payments 
+# client.partners.earnings is also supported
+earnings.count #=> 5
+earnings.payments #=> Array of Uber::Partner::Payment
+payment = earnings.payments.first
+payment.category #=> 'fare'
+payment.cash_collected #=> 7.63
+payment.currency_code #=> 'USD'
+payment.event_time #=> 2016-11-12 10:29:28 UTC
+
+# Using params:
+earnings = client.partners.payments(:offset => 1, :limit => 2)
+```
+More details can be found [here](https://developer.uber.com/docs/drivers/references/api/v1/partners-payments-get).
+
+### Trips details
+It returns an array of trips for the authenticated driver.    
+> OAuth 2.0 bearer token with the partner.trips.
+
+```ruby
+trips = client.partners.trips 
+trips.count #=> 1
+trips.offset #=> 0
+trips.trips #=> Array of Uber::Partner::Trip
+trip = trips.trips.first
+trip.distance #=> 0
+trip.status #=> 'driver_canceled'
+trip.duration #=> 0
+```
+More details can be found [here](https://developer.uber.com/docs/drivers/references/api/v1/partners-trips-get).
+
+
 
 ## Contributors
 
@@ -266,7 +320,7 @@ reminder.delete_reminder 'rem1'
 
 ## Contributing
 
-1. Fork it ( http://github.com/<my-github-username>/uber-ruby/fork )
+1. Fork it ( http://github.com/sishen/uber-ruby/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
