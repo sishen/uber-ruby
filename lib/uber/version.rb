@@ -1,7 +1,7 @@
 module Uber
   class Version
     MAJOR = 0
-    MINOR = 7
+    MINOR = 8
     PATCH = 0
 
     class << self
