@@ -7,6 +7,7 @@ require 'uber/api/promotions'
 require 'uber/api/reminders.rb'
 require 'uber/api/requests'
 require 'uber/api/places'
+require 'uber/api/partners'
 
 module Uber
   module API
