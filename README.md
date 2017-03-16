@@ -192,8 +192,8 @@ client = Uber::Client.new do |config|
   config.bearer_token  = "USER_ACCESS_TOKEN"
 end
 
-place = client.places 'home'
-place.address #=> retuns fully qualified address of location
+place = client.place 'home'
+place.address #=> returns fully qualified address of location
 ```
 
 ### Update addresses
