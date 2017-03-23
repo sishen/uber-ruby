@@ -58,6 +58,6 @@ module Uber
   end
 
   class Location < Base
-    attr_accessor :latitude, :longitude, :bearing
+    attr_accessor :latitude, :longitude, :bearing, :eta
   end
 end
