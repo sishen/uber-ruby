@@ -250,11 +250,13 @@ describe Uber::API::Requests do
                           },
                           "pickup" => {
                             "latitude" => 0.0,
-                            "longitude" => 0.5
+                            "longitude" => 0.5,
+                            "eta" => 5
                           },
                           "destination" => {
                             "latitude" => 0.0,
-                            "longitude" => 0.6
+                            "longitude" => 0.6,
+                            "eta" => 19
                           },
                           "vehicle" => {
                             "make" => "Bugatti",
@@ -286,9 +288,11 @@ describe Uber::API::Requests do
 
       expect(request.pickup.latitude).to eql 0.0
       expect(request.pickup.longitude).to eql 0.5
+      expect(request.pickup.eta).to eql 5
 
       expect(request.destination.latitude).to eql 0.0
       expect(request.destination.longitude).to eql 0.6
+      expect(request.destination.eta).to eql 19
 
       expect(request.vehicle.make).to eql 'Bugatti'
       expect(request.vehicle.model).to eql 'Veyron'
