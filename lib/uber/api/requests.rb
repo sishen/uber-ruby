@@ -1,6 +1,7 @@
 require 'uber/arguments'
 require 'uber/api_request'
 require 'uber/models/request'
+require 'uber/models/receipt'
 require 'uber/models/estimate'
 require 'uber/models/map'
 
@@ -32,6 +33,12 @@ module Uber
       def trip_cancel(request_id)
         perform_with_object(:delete, "v1/requests/#{request_id}", {}, Request)
       end
+
+      def trip_receipt(request_id)
+        perform_with_object(:get, "v1.2/requests/#{request_id}/receipt", {}, Receipt)
+      end
+
+      alias_method :ride_receipt, :trip_receipt
     end
   end
 end

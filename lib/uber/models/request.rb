@@ -1,6 +1,7 @@
 module Uber
   class Request < Base
-    attr_accessor :request_id, :status, :vehicle, :driver, :location, :pickup, :destination, :eta, :surge_multiplier, :meta, :errors
+    attr_accessor :request_id, :status, :vehicle, :driver, :location,
+                  :pickup, :destination, :eta, :surge_multiplier, :meta, :errors
 
     def driver=(value)
       @driver = value.nil? ? nil : Driver.new(value)
