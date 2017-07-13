@@ -177,7 +177,7 @@ describe Uber::API::Requests do
                             :surge_multiplier => 1.0
                           },
                           body: {product_id: 'deadbeef', start_latitude: 0.0, start_longitude: 0.5, end_latitude: 0.0, end_longitude: 0.6}.to_json,
-                          status_code: 409)
+                          status_code: 202)
       end
 
       it 'should submit a request for a ride' do
