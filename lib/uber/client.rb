@@ -142,7 +142,12 @@ module Uber
     end
 
     def request(method, path, params = {}, headers = {})
-      connection.send(method.to_sym, path, params) { |request| request.headers.update(headers) }.env
+      response = connection.send(method.to_sym, path, params) do |request|
+        request.headers.update(headers)
+      end.env
+
+      return response if response.success?
+      raise Uber::Error.from_response(response)
     rescue Faraday::Error::TimeoutError, Timeout::Error => error
       raise(Uber::Error::RequestTimeout.new(error))
     rescue Faraday::Error::ClientError, JSON::ParserError => error

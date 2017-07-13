@@ -51,6 +51,8 @@ module Uber
           [body[:error], nil]
         elsif body[:errors]
           extract_message_from_errors(body)
+        elsif body[:message] && body[:code]
+          [body[:message], body[:code]]
         end
       end
 
