@@ -46,6 +46,11 @@ module Uber
         delivery_id = delivery_id.is_a?(Delivery::Delivery) ? delivery_id.delivery_id : delivery_id
         perform_with_objects(:get, "/v1/deliveries/#{delivery_id}/rating_tags", {}, Delivery::RatingTag)
       end
+
+      def cancel_delivery(delivery_id)
+        delivery_id = delivery_id.is_a?(Delivery::Delivery) ? delivery_id.delivery_id : delivery_id
+        perform_without_object(:post, "/v1/deliveries/#{delivery_id}/cancel", {})
+      end
     end
   end
 end

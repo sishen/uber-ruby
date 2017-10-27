@@ -615,7 +615,7 @@ describe Uber::API::Deliveries do
                                 "courier_bad_service"]}]
                         })
     end
-    it 'shoudld return all available rating tags for the delivery' do
+    it 'should return all available rating tags for the delivery' do
       tags = client.delivery_rating_tags('8b58bc58-7352-4278-b569-b5d24d8e3f76')
 
       expect(tags.size).to eql 2
@@ -626,6 +626,16 @@ describe Uber::API::Deliveries do
                                      "courier_late_to_dropoff", "inaccurate_eta",
                                      "courier_missed_pickup_instructions"]
     end
+  end
 
+  describe 'on canceling the delivery' do
+    before do
+      stub_uber_request(:post, 'v1/deliveries/8b58bc58-7352-4278-b569-b5d24d8e3f76/cancel', nil,
+                        body: {}.to_json, status_code: 204)
+    end
+    it 'should cancel the delivery request and return status code' do
+      status = client.cancel_delivery('8b58bc58-7352-4278-b569-b5d24d8e3f76')
+      expect(status).to eql 204
+    end
   end
 end
