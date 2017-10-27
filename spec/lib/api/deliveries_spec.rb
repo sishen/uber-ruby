@@ -591,4 +591,41 @@ describe Uber::API::Deliveries do
       expect(status).to eql 204
     end
   end
+
+  describe 'on request delivery rating tags' do
+    before do
+      stub_uber_request(:get, 'v1/deliveries/8b58bc58-7352-4278-b569-b5d24d8e3f76/rating_tags',
+                        {"rating_tags"=>
+                           [{"waypoint"=>"pickup",
+                             "tags"=>
+                               ["courier_remained_at_curbside",
+                                "courier_missing_delivery_bag",
+                                "courier_unprofessional",
+                                "courier_late_to_pickup",
+                                "courier_late_to_dropoff",
+                                "inaccurate_eta",
+                                "courier_missed_pickup_instructions"]},
+                            {"waypoint"=>"dropoff",
+                             "tags"=>
+                               ["courier_on_time",
+                                "courier_not_on_time",
+                                "delivery_in_good_condition",
+                                "delivery_in_bad_condition",
+                                "courier_good_service",
+                                "courier_bad_service"]}]
+                        })
+    end
+    it 'shoudld return all available rating tags for the delivery' do
+      tags = client.delivery_rating_tags('8b58bc58-7352-4278-b569-b5d24d8e3f76')
+
+      expect(tags.size).to eql 2
+      expect(tags[0].waypoint).to eql 'pickup'
+      expect(tags[0].tags.class).to eql Array
+      expect(tags[0].tags).to eql  ["courier_remained_at_curbside", "courier_missing_delivery_bag",
+                                     "courier_unprofessional", "courier_late_to_pickup",
+                                     "courier_late_to_dropoff", "inaccurate_eta",
+                                     "courier_missed_pickup_instructions"]
+    end
+
+  end
 end
