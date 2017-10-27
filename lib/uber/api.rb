@@ -8,6 +8,7 @@ require 'uber/api/reminders.rb'
 require 'uber/api/requests'
 require 'uber/api/places'
 require 'uber/api/partners'
+require 'uber/api/deliveries'
 
 module Uber
   module API
@@ -21,5 +22,6 @@ module Uber
     include Uber::API::Places
     include Uber::API::Reminders
     include Uber::API::Requests
+    include Uber::API::Deliveries
   end
 end
