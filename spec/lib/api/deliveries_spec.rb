@@ -223,4 +223,199 @@ describe Uber::API::Deliveries do
     end
   end
 
+  describe 'on creating a delivery' do
+    before do
+      stub_uber_request(:post, "v1/deliveries",
+                        {"courier"=>nil,
+                         "created_at"=>1441146983,
+                         "currency_code"=>"USD",
+                         "delivery_id"=>"b32d5374-7cee-4bc0-b588-f3820ab9b98c",
+                         "dropoff"=>
+                           {"contact"=>
+                              {"company_name"=>"Gizmo Shop",
+                               "email"=>"contact@uber.com",
+                               "first_name"=>"Calvin",
+                               "last_name"=>"Lee",
+                               "phone"=>{"number"=>"+14081234567", "sms_enabled"=>false},
+                               "send_email_notifications"=>true,
+                               "send_sms_notifications"=>true},
+                            "eta"=>20,
+                            "location"=>
+                              {"address"=>"530 W 113th Street",
+                               "address_2"=>"Floor 2",
+                               "city"=>"New York",
+                               "country"=>"US",
+                               "postal_code"=>"10025",
+                               "state"=>"NY"},
+                            "signature_required"=>false,
+                            "special_instructions"=>nil},
+                         "fee"=>5,
+                         "items"=>
+                           [{"height"=>5,
+                             "is_fragile"=>false,
+                             "length"=>14.5,
+                             "price"=>1,
+                             "quantity"=>1,
+                             "title"=>"Shoes",
+                             "weight"=>2,
+                             "width"=>7},
+                            {"height"=>5,
+                             "is_fragile"=>false,
+                             "length"=>25,
+                             "quantity"=>1,
+                             "title"=>"Guitar",
+                             "weight"=>10,
+                             "width"=>12}],
+                         "order_reference_id"=>"SDA124KA",
+                         "pickup"=>
+                           {"contact"=>
+                              {"company_name"=>"Gizmo Shop",
+                               "email"=>"contact@uber.com",
+                               "first_name"=>"Calvin",
+                               "last_name"=>"Lee",
+                               "phone"=>{"number"=>"+14081234567", "sms_enabled"=>false},
+                               "send_email_notifications"=>true,
+                               "send_sms_notifications"=>true},
+                            "eta"=>5,
+                            "location"=>
+                              {"address"=>"636 W 28th Street",
+                               "address_2"=>"Floor 2",
+                               "city"=>"New York",
+                               "country"=>"US",
+                               "postal_code"=>"10001",
+                               "state"=>"NY"},
+                            "special_instructions"=>"Go to pickup counter in back of shop."},
+                         "quote_id"=>
+                           "KEBjNGUxNjhlZmNmMDA4ZGJjNmJlY2EwOGJlN2M0ZjdmZjI2Y2VkZDdmMmQ2MDJlZDJjMTc4MzM2ODU2YzRkMzU4FYihsd4KFbiqsd4KFYD1sgwcFdD/0oQDFYfw48EFABwVyoCThQMVp/qvwQUAGANVU0QA",
+                         "status"=>"processing",
+                         "tracking_url"=>nil,
+                         "batch"=>
+                           {"batch_id"=>"963233d3-e8ad-4ed9-aae7-95446ffee22f",
+                            "count"=>2,
+                            "deliveries"=>
+                              ["8b58bc58-7352-4278-b569-b5d24d8e3f76",
+                               "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"]}
+                        },
+                        body: {
+                               "dropoff"=>
+                                 {"contact"=>
+                                    {"company_name"=>"Gizmo Shop",
+                                     "email"=>"contact@uber.com",
+                                     "first_name"=>"Calvin",
+                                     "last_name"=>"Lee",
+                                     "phone"=>{"number"=>"+14081234567", "sms_enabled"=>false},
+                                     "send_email_notifications"=>true,
+                                     "send_sms_notifications"=>true},
+                                  "eta"=>20,
+                                  "location"=>
+                                    {"address"=>"530 W 113th Street",
+                                     "address_2"=>"Floor 2",
+                                     "city"=>"New York",
+                                     "country"=>"US",
+                                     "postal_code"=>"10025",
+                                     "state"=>"NY"},
+                                  "signature_required"=>false,
+                                  "special_instructions"=>nil},
+                               "items"=>
+                                 [{"height"=>5,
+                                   "is_fragile"=>false,
+                                   "length"=>14.5,
+                                   "price"=>1,
+                                   "quantity"=>1,
+                                   "title"=>"Shoes",
+                                   "weight"=>2,
+                                   "width"=>7},
+                                  {"height"=>5,
+                                   "is_fragile"=>false,
+                                   "length"=>25,
+                                   "quantity"=>1,
+                                   "title"=>"Guitar",
+                                   "weight"=>10,
+                                   "width"=>12}],
+                               "order_reference_id"=>"SDA124KA",
+                               "pickup"=>
+                                 {"contact"=>
+                                    {"company_name"=>"Gizmo Shop",
+                                     "email"=>"contact@uber.com",
+                                     "first_name"=>"Calvin",
+                                     "last_name"=>"Lee",
+                                     "phone"=>{"number"=>"+14081234567", "sms_enabled"=>false},
+                                     "send_email_notifications"=>true,
+                                     "send_sms_notifications"=>true},
+                                  "location"=>
+                                    {"address"=>"636 W 28th Street",
+                                     "address_2"=>"Floor 2",
+                                     "city"=>"New York",
+                                     "country"=>"US",
+                                     "postal_code"=>"10001",
+                                     "state"=>"NY"},
+                                  "special_instructions"=>"Go to pickup counter in back of shop."},
+                               "quote_id"=>
+                                 "KEBjNGUxNjhlZmNmMDA4ZGJjNmJlY2EwOGJlN2M0ZjdmZjI2Y2VkZDdmMmQ2MDJlZDJjMTc4MzM2ODU2YzRkMzU4FYihsd4KFbiqsd4KFYD1sgwcFdD/0oQDFYfw48EFABwVyoCThQMVp/qvwQUAGANVU0QA"
+                        }.to_json,
+                        status_code: 200
+      )
+    end
+    it 'should return newly created delivery' do
+      delivery = client.add_delivery({
+                                       "dropoff"=>
+                                         {"contact"=>
+                                            {"company_name"=>"Gizmo Shop",
+                                             "email"=>"contact@uber.com",
+                                             "first_name"=>"Calvin",
+                                             "last_name"=>"Lee",
+                                             "phone"=>{"number"=>"+14081234567", "sms_enabled"=>false},
+                                             "send_email_notifications"=>true,
+                                             "send_sms_notifications"=>true},
+                                          "eta"=>20,
+                                          "location"=>
+                                            {"address"=>"530 W 113th Street",
+                                             "address_2"=>"Floor 2",
+                                             "city"=>"New York",
+                                             "country"=>"US",
+                                             "postal_code"=>"10025",
+                                             "state"=>"NY"},
+                                          "signature_required"=>false,
+                                          "special_instructions"=>nil},
+                                       "items"=>
+                                         [{"height"=>5,
+                                           "is_fragile"=>false,
+                                           "length"=>14.5,
+                                           "price"=>1,
+                                           "quantity"=>1,
+                                           "title"=>"Shoes",
+                                           "weight"=>2,
+                                           "width"=>7},
+                                          {"height"=>5,
+                                           "is_fragile"=>false,
+                                           "length"=>25,
+                                           "quantity"=>1,
+                                           "title"=>"Guitar",
+                                           "weight"=>10,
+                                           "width"=>12}],
+                                       "order_reference_id"=>"SDA124KA",
+                                       "pickup"=>
+                                         {"contact"=>
+                                            {"company_name"=>"Gizmo Shop",
+                                             "email"=>"contact@uber.com",
+                                             "first_name"=>"Calvin",
+                                             "last_name"=>"Lee",
+                                             "phone"=>{"number"=>"+14081234567", "sms_enabled"=>false},
+                                             "send_email_notifications"=>true,
+                                             "send_sms_notifications"=>true},
+                                          "location"=>
+                                            {"address"=>"636 W 28th Street",
+                                             "address_2"=>"Floor 2",
+                                             "city"=>"New York",
+                                             "country"=>"US",
+                                             "postal_code"=>"10001",
+                                             "state"=>"NY"},
+                                          "special_instructions"=>"Go to pickup counter in back of shop."},
+                                       "quote_id"=>
+                                         "KEBjNGUxNjhlZmNmMDA4ZGJjNmJlY2EwOGJlN2M0ZjdmZjI2Y2VkZDdmMmQ2MDJlZDJjMTc4MzM2ODU2YzRkMzU4FYihsd4KFbiqsd4KFYD1sgwcFdD/0oQDFYfw48EFABwVyoCThQMVp/qvwQUAGANVU0QA"
+                                     })
+      expect(delivery.delivery_id).to eql "b32d5374-7cee-4bc0-b588-f3820ab9b98c"
+    end
+  end
+
 end
