@@ -539,4 +539,32 @@ describe Uber::API::Deliveries do
       expect(receipt.total_fee).to eql 6.17
     end
   end
+
+  describe 'on requesting ratings of a delivery' do
+    before do
+      stub_uber_request(:get, 'v1/deliveries/8b58bc58-7352-4278-b569-b5d24d8e3f76/ratings',
+                        {"ratings"=>
+                           [{"waypoint"=>"pickup",
+                             "rating_type"=>"binary",
+                             "rating_value"=>0,
+                             "tags"=>["courier_unprofessional", "courier_remained_at_curbside"],
+                             "comments"=>"Courier was not professionally dressed."},
+                            {"waypoint"=>"dropoff",
+                             "rating_type"=>"binary",
+                             "rating_value"=>0,
+                             "tags"=>["courier_not_on_time", "delivery_in_good_condition"],
+                             "comments"=>"Courier was not professionally dressed."}]
+                        })
+    end
+    it 'should return all avilable ratings for that delivery' do
+      ratings = client.delivery_ratings('8b58bc58-7352-4278-b569-b5d24d8e3f76')
+
+      expect(ratings.size).to eql 2
+      expect(ratings[0].waypoint).to eql 'pickup'
+      expect(ratings[0].rating_type).to eql 'binary'
+      expect(ratings[0].rating_value).to eql 0
+      expect(ratings[0].tags).to eql ["courier_unprofessional", "courier_remained_at_curbside"]
+      expect(ratings[0].comments).to eql 'Courier was not professionally dressed.'
+    end
+  end
 end
