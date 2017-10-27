@@ -418,4 +418,97 @@ describe Uber::API::Deliveries do
     end
   end
 
+  describe 'on adding quote' do
+    before do
+      stub_uber_request(:post, 'v1/deliveries/quote',
+                        {"quotes"=>
+                           [{"quote_id"=>
+                               "CwACAAAAQGU0NTYwYjUyNjY4YzBjNDBiNDFjYzA4ZDdlNzE0OWM3ZmYxZjY0NTJkNDQ1NjE2NDg3NDI1ZmFkZjZiYTI1ODcIAANXHm3xCAAEVx5wSQgABQBSs-AMAAYIAAEYXJdJCAAC0_FrQwAMAAcIAAEYWt-7CAAC0_BeNAALAAgAAAADVVNEAA==",
+                             "estimated_at"=>1461612017,
+                             "expires_at"=>1461612617,
+                             "fee"=>5.42,
+                             "currency_code"=>"USD",
+                             "pickup_eta"=>6,
+                             "dropoff_eta"=>13},
+                            {"quote_id"=>
+                               "CwACAAAAQDNkMWZhMDg0ZWJiNzkwMTA4MGNmNzlkMTdlN2U1MGE2YzI1NTQ0Yzc4ZmIwOTIyNzUwMDc0ZDNjNGFhZjRlYjMIAANXHm3xCAAEVx5wSQgABQBCOSAMAAYIAAEYXJdJCAAC0_FrQwAMAAcIAAEYWt-7CAAC0_BeNAALAAgAAAADVVNECgAJAAABVE84wIAKAAoAAAFUT2-vAAoACwAAAVRPLXXgAA==",
+                             "estimated_at"=>1461612017,
+                             "expires_at"=>1461612617,
+                             "start_time"=>1461618000,
+                             "end_time"=>1461621600,
+                             "fee"=>4.34,
+                             "currency_code"=>"USD",
+                             "ready_by_time"=>1461617260},
+                            {"quote_id"=>
+                               "CwACAAAAQGViOWFkM2E5NTBkZDlmOWI1NjI4ODc0NTljMjc3OWFlZWY1YmVkODVhMzc4MGQ4N2RlNTI3NDAzNWU3NTIxYzUIAANXHm3xCAAEVx5wSQgABQBCOSAMAAYIAAEYXJdJCAAC0_FrQwAMAAcIAAEYWt-7CAAC0_BeNAALAAgAAAADVVNECgAJAAABVE9vrwAKAAoAAAFUT6adgAoACwAAAVRPZGRgAA==",
+                             "estimated_at"=>1461612017,
+                             "expires_at"=>1461612617,
+                             "start_time"=>1461621600,
+                             "end_time"=>1461625200,
+                             "fee"=>4.34,
+                             "currency_code"=>"USD",
+                             "ready_by_time"=>1461620860},
+                            {"quote_id"=>
+                               "CwACAAAAQDljOGJkZmVjZjg0NDgwNGJhY2UyNDAzYTU4NjA3OTc5MjA3NmIxMmJmMjNhOTM3YWQ0NGM3NGMwYzNjNTM4OTQIAANXHm3xCAAEVx5wSQgABQBCOSAMAAYIAAEYXJdJCAAC0_FrQwAMAAcIAAEYWt-7CAAC0_BeNAALAAgAAAADVVNECgAJAAABVE-mnYAKAAoAAAFUT92MAAoACwAAAVRPm1LgAA==",
+                             "estimated_at"=>1461612017,
+                             "expires_at"=>1461612617,
+                             "start_time"=>1461625200,
+                             "end_time"=>1461628800,
+                             "fee"=>4.34,
+                             "currency_code"=>"USD",
+                             "ready_by_time"=>1461624460}]
+                        },
+                        body: {
+                          "pickup" => {
+                            "location" => {
+                              "address"=>"636 W 28th Street",
+                              "address_2"=>"Floor 2",
+                              "city"=>"New York",
+                              "country"=>"US",
+                              "postal_code"=>"10001",
+                              "state"=>"NY"
+                            }
+                          },
+                          "dropoff" => {
+                            "location" => {
+                              "address"=>"530 W 113th Street",
+                              "address_2"=>"Floor 2",
+                              "city"=>"New York",
+                              "country"=>"US",
+                              "postal_code"=>"10025",
+                              "state"=>"NY"
+                            }
+                          }
+                        }.to_json,
+                        status_code: 201
+      )
+    end
+
+    it 'should return on-demand and scheduled delivery quotes' do
+      quotes = client.add_delivery_quote({
+                                            "pickup" => {
+                                              "location" => {
+                                                "address"=>"636 W 28th Street",
+                                                "address_2"=>"Floor 2",
+                                                "city"=>"New York",
+                                                "country"=>"US",
+                                                "postal_code"=>"10001",
+                                                "state"=>"NY"
+                                              }
+                                            },
+                                            "dropoff" => {
+                                              "location" => {
+                                                "address"=>"530 W 113th Street",
+                                                "address_2"=>"Floor 2",
+                                                "city"=>"New York",
+                                                "country"=>"US",
+                                                "postal_code"=>"10025",
+                                                "state"=>"NY"
+                                              }
+                                            }
+                                          })
+      expect(quotes.size).to eql 4
+    end
+  end
+
 end
