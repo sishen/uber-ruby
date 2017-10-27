@@ -20,5 +20,13 @@ module Uber
       request = Uber::ApiRequest.new(client, request_method, path, options)
       request.perform_with_objects(klass)
     end
+
+    # @param request_method [Symbol]
+    # @param path [String]
+    # @param options [Hash]
+    def perform_without_object(request_method, path, options, client=self)
+      request = Uber::ApiRequest.new(client, request_method, path, options)
+      request.perform_without_object
+    end
   end
 end

@@ -34,5 +34,10 @@ module Uber
         klass.new(element)
       end
     end
+
+    # @return status_code [Integer]
+    def perform_without_object
+      @client.send(@request_method, @path, @options).status
+    end
   end
 end
