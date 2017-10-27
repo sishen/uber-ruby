@@ -25,6 +25,11 @@ module Uber
       def delivery(delivery_id)
         perform_with_object(:get, "/v1/deliveries/#{delivery_id}", {}, Delivery::Delivery)
       end
+
+      def delivery_receipt(delivery_id)
+        delivery_id = delivery_id.is_a?(Delivery::Delivery) ? delivery_id.delivery_id : delivery_id
+        perform_with_object(:get, "/v1/deliveries/#{delivery_id}/receipt", {}, Delivery::Receipt)
+      end
     end
   end
 end

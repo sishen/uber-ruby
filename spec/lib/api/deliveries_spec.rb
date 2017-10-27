@@ -508,7 +508,35 @@ describe Uber::API::Deliveries do
                                             }
                                           })
       expect(quotes.size).to eql 4
+
+      expect(quotes[0].quote_id).to eql 'CwACAAAAQGU0NTYwYjUyNjY4YzBjNDBiNDFjYzA4ZDdlNzE0OWM3ZmYxZjY0NTJkNDQ1NjE2NDg3NDI1ZmFkZjZiYTI1ODcIAANXHm3xCAAEVx5wSQgABQBSs-AMAAYIAAEYXJdJCAAC0_FrQwAMAAcIAAEYWt-7CAAC0_BeNAALAAgAAAADVVNEAA=='
+      expect(quotes[0].estimated_at).to eql Time.at(1461612017)
+      expect(quotes[0].expires_at).to eql Time.at(1461612617)
+      expect(quotes[0].fee).to eql 5.42
+      expect(quotes[0].currency_code).to eql 'USD'
+      expect(quotes[0].pickup_eta).to eql 6
+      expect(quotes[0].dropoff_eta).to eql 13
     end
   end
 
+  describe 'on requesting receipt' do
+    before do
+      stub_uber_request(:get, 'v1/deliveries/78aa3783-e845-4a85-910c-be30dd0c712b/receipt',
+                        {"charges"=>[{"amount"=>9.79, "name"=>"Trip fare"}],
+                         "charge_adjustments"=>
+                           [{"amount"=>-1, "name"=>"Uber Credit"},
+                            {"amount"=>-2.62, "name"=>"Batch Discount"}],
+                         "delivery_id"=>"78aa3783-e845-4a85-910c-be30dd0c712b",
+                         "currency_code"=>"USD",
+                         "total_fee"=>6.17})
+    end
+    it 'should return delivery receipt with details' do
+      receipt = client.delivery_receipt('78aa3783-e845-4a85-910c-be30dd0c712b')
+      expect(receipt.charges.class).to eql Array
+      expect(receipt.charge_adjustments.class).to eql Array
+      expect(receipt.delivery_id).to eql '78aa3783-e845-4a85-910c-be30dd0c712b'
+      expect(receipt.currency_code).to eql 'USD'
+      expect(receipt.total_fee).to eql 6.17
+    end
+  end
 end
