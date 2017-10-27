@@ -567,4 +567,28 @@ describe Uber::API::Deliveries do
       expect(ratings[0].comments).to eql 'Courier was not professionally dressed.'
     end
   end
+
+  describe 'on adding a rating to a delivery' do
+    before do
+      stub_uber_request(:post, 'v1/deliveries/8b58bc58-7352-4278-b569-b5d24d8e3f76/rating',
+                        nil,
+                        body: {"waypoint"=>"dropoff",
+                               "rating_type"=>"binary",
+                               "rating_value"=>0,
+                               "tags"=>["courier_not_on_time", "delivery_in_good_condition"],
+                               "comments"=>"Courier was not professionally dressed."}.to_json,
+                        status_code: 204
+      )
+    end
+
+    it 'should create rating and return nothing' do
+      status = client.add_delivery_rating('8b58bc58-7352-4278-b569-b5d24d8e3f76',
+                                          {"waypoint"=>"dropoff",
+                                           "rating_type"=>"binary",
+                                           "rating_value"=>0,
+                                           "tags"=>["courier_not_on_time", "delivery_in_good_condition"],
+                                           "comments"=>"Courier was not professionally dressed."})
+      expect(status).to eql 204
+    end
+  end
 end

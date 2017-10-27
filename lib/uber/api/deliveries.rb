@@ -35,6 +35,12 @@ module Uber
         delivery_id = delivery_id.is_a?(Delivery::Delivery) ? delivery_id.delivery_id : delivery_id
         perform_with_objects(:get, "/v1/deliveries/#{delivery_id}/ratings", {}, Delivery::Rating)
       end
+
+      def add_delivery_rating(delivery_id, *args)
+        delivery_id = delivery_id.is_a?(Delivery::Delivery) ? delivery_id.delivery_id : delivery_id
+        arguments = Uber::Arguments.new(args)
+        perform_without_object(:post, "/v1/deliveries/#{delivery_id}/rating", arguments.options)
+      end
     end
   end
 end
