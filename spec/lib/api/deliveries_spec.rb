@@ -98,7 +98,7 @@ describe Uber::API::Deliveries do
       )
     end
     it 'should return list of all deliveries' do
-      deliveries = client.deliveries
+      deliveries = client.deliveries.list
       expect(deliveries.size).to eql 1
 
       expect(deliveries[0].courier.class).to eql Hash
@@ -205,7 +205,7 @@ describe Uber::API::Deliveries do
     end
 
     it 'should give detail about that delivery' do
-      delivery = client.delivery("8b58bc58-7352-4278-b569-b5d24d8e3f76")
+      delivery = client.deliveries.retrieve("8b58bc58-7352-4278-b569-b5d24d8e3f76")
 
       expect(delivery.courier.class).to eql Hash
       expect(delivery.created_at).to eql ::Time.at(1441147296)
@@ -357,7 +357,7 @@ describe Uber::API::Deliveries do
       )
     end
     it 'should return newly created delivery' do
-      delivery = client.add_delivery({
+      delivery = client.deliveries.add_delivery({
                                        "dropoff"=>
                                          {"contact"=>
                                             {"company_name"=>"Gizmo Shop",
@@ -485,7 +485,7 @@ describe Uber::API::Deliveries do
     end
 
     it 'should return on-demand and scheduled delivery quotes' do
-      quotes = client.add_delivery_quote({
+      quotes = client.deliveries.add_quote({
                                             "pickup" => {
                                               "location" => {
                                                 "address"=>"636 W 28th Street",
@@ -531,7 +531,7 @@ describe Uber::API::Deliveries do
                          "total_fee"=>6.17})
     end
     it 'should return delivery receipt with details' do
-      receipt = client.delivery_receipt('78aa3783-e845-4a85-910c-be30dd0c712b')
+      receipt = client.deliveries.receipt('78aa3783-e845-4a85-910c-be30dd0c712b')
       expect(receipt.charges.class).to eql Array
       expect(receipt.charge_adjustments.class).to eql Array
       expect(receipt.delivery_id).to eql '78aa3783-e845-4a85-910c-be30dd0c712b'
@@ -557,7 +557,7 @@ describe Uber::API::Deliveries do
                         })
     end
     it 'should return all avilable ratings for that delivery' do
-      ratings = client.delivery_ratings('8b58bc58-7352-4278-b569-b5d24d8e3f76')
+      ratings = client.deliveries.ratings('8b58bc58-7352-4278-b569-b5d24d8e3f76')
 
       expect(ratings.size).to eql 2
       expect(ratings[0].waypoint).to eql 'pickup'
@@ -582,7 +582,7 @@ describe Uber::API::Deliveries do
     end
 
     it 'should create rating and return nothing' do
-      status = client.add_delivery_rating('8b58bc58-7352-4278-b569-b5d24d8e3f76',
+      status = client.deliveries.add_rating('8b58bc58-7352-4278-b569-b5d24d8e3f76',
                                           {"waypoint"=>"dropoff",
                                            "rating_type"=>"binary",
                                            "rating_value"=>0,
@@ -616,7 +616,7 @@ describe Uber::API::Deliveries do
                         })
     end
     it 'should return all available rating tags for the delivery' do
-      tags = client.delivery_rating_tags('8b58bc58-7352-4278-b569-b5d24d8e3f76')
+      tags = client.deliveries.rating_tags('8b58bc58-7352-4278-b569-b5d24d8e3f76')
 
       expect(tags.size).to eql 2
       expect(tags[0].waypoint).to eql 'pickup'
@@ -634,7 +634,7 @@ describe Uber::API::Deliveries do
                         body: {}.to_json, status_code: 204)
     end
     it 'should cancel the delivery request and return status code' do
-      status = client.cancel_delivery('8b58bc58-7352-4278-b569-b5d24d8e3f76')
+      status = client.deliveries.cancel('8b58bc58-7352-4278-b569-b5d24d8e3f76')
       expect(status).to eql 204
     end
   end
@@ -662,7 +662,7 @@ describe Uber::API::Deliveries do
                         })
     end
     it 'should return all regions where UberRUSH is available' do
-      regions = client.deliveries_regions
+      regions = client.deliveries.regions
       expect(regions.size).to eql 1
       expect(regions[0].city).to eql 'San Francisco'
       expect(regions[0].country).to eql 'USA'
