@@ -7,53 +7,53 @@ module Uber
     module Deliveries
       include Uber::Utils
 
-      def deliveries(*args)
+      def list(*args)
         arguments = Uber::Arguments.new(args)
-        perform_with_objects(:get, "/v1/deliveries", arguments.options, Delivery::Delivery)
+        perform_with_objects(:get, "/v1/deliveries", arguments.options, Delivery::Delivery, self.client)
       end
 
       def add_delivery(*args)
         arguments = Uber::Arguments.new(args)
-        perform_with_object(:post, "/v1/deliveries", arguments.options, Delivery::Delivery)
+        perform_with_object(:post, "/v1/deliveries", arguments.options, Delivery::Delivery, self.client)
       end
 
-      def add_delivery_quote(*args)
+      def add_quote(*args)
         arguments = Uber::Arguments.new(args)
-        perform_with_objects(:post, "/v1/deliveries/quote", arguments.options, Delivery::Quote)
+        perform_with_objects(:post, "/v1/deliveries/quote", arguments.options, Delivery::Quote, self.client)
       end
 
-      def delivery(delivery_id)
-        perform_with_object(:get, "/v1/deliveries/#{delivery_id}", {}, Delivery::Delivery)
+      def retrieve(delivery_id)
+        perform_with_object(:get, "/v1/deliveries/#{delivery_id}", {}, Delivery::Delivery, self.client)
       end
 
-      def delivery_receipt(delivery_id)
+      def receipt(delivery_id)
         delivery_id = delivery_id.is_a?(Delivery::Delivery) ? delivery_id.delivery_id : delivery_id
-        perform_with_object(:get, "/v1/deliveries/#{delivery_id}/receipt", {}, Delivery::Receipt)
+        perform_with_object(:get, "/v1/deliveries/#{delivery_id}/receipt", {}, Delivery::Receipt, self.client)
       end
 
-      def delivery_ratings(delivery_id)
+      def ratings(delivery_id)
         delivery_id = delivery_id.is_a?(Delivery::Delivery) ? delivery_id.delivery_id : delivery_id
-        perform_with_objects(:get, "/v1/deliveries/#{delivery_id}/ratings", {}, Delivery::Rating)
+        perform_with_objects(:get, "/v1/deliveries/#{delivery_id}/ratings", {}, Delivery::Rating, self.client)
       end
 
-      def add_delivery_rating(delivery_id, *args)
+      def add_rating(delivery_id, *args)
         delivery_id = delivery_id.is_a?(Delivery::Delivery) ? delivery_id.delivery_id : delivery_id
         arguments = Uber::Arguments.new(args)
-        perform_without_object(:post, "/v1/deliveries/#{delivery_id}/rating", arguments.options)
+        perform_without_object(:post, "/v1/deliveries/#{delivery_id}/rating", arguments.options, self.client)
       end
 
-      def delivery_rating_tags(delivery_id)
+      def rating_tags(delivery_id)
         delivery_id = delivery_id.is_a?(Delivery::Delivery) ? delivery_id.delivery_id : delivery_id
-        perform_with_objects(:get, "/v1/deliveries/#{delivery_id}/rating_tags", {}, Delivery::RatingTag)
+        perform_with_objects(:get, "/v1/deliveries/#{delivery_id}/rating_tags", {}, Delivery::RatingTag, self.client)
       end
 
-      def cancel_delivery(delivery_id)
+      def cancel(delivery_id)
         delivery_id = delivery_id.is_a?(Delivery::Delivery) ? delivery_id.delivery_id : delivery_id
-        perform_without_object(:post, "/v1/deliveries/#{delivery_id}/cancel", {})
+        perform_without_object(:post, "/v1/deliveries/#{delivery_id}/cancel", {}, self.client)
       end
 
-      def deliveries_regions
-        perform_with_objects(:get, "/v1/deliveries/regions", {}, Delivery::Region)
+      def regions
+        perform_with_objects(:get, "/v1/deliveries/regions", {}, Delivery::Region, self.client)
       end
     end
   end

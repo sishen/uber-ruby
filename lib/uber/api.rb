@@ -22,6 +22,5 @@ module Uber
     include Uber::API::Places
     include Uber::API::Reminders
     include Uber::API::Requests
-    include Uber::API::Deliveries
   end
 end

@@ -120,6 +120,10 @@ module Uber
     def partners
       @partners ||= Uber::Partner::Client.new self
     end
+
+    def deliveries
+      @deliveries ||= Uber::Delivery::Client.new self
+    end
     private
 
     # Ensures that all credentials set during configuration are
@@ -174,6 +178,15 @@ module Uber
   module Partner
     class Client
       include Uber::API::Partners
+      attr_reader :client
+      def initialize(client)
+        @client = client
+      end
+    end
+  end
+  module Delivery
+    class Client
+      include Uber::API::Deliveries
       attr_reader :client
       def initialize(client)
         @client = client
