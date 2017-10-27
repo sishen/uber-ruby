@@ -638,4 +638,36 @@ describe Uber::API::Deliveries do
       expect(status).to eql 204
     end
   end
+
+  describe 'on requesting regions' do
+    before do
+      stub_uber_request(:get, 'v1/deliveries/regions',
+                        {"regions"=>
+                           [{"city"=>"San Francisco",
+                             "country"=>"USA",
+                             "type"=>"FeatureCollection",
+                             "features"=>
+                               [{"type"=>"Feature",
+                                 "properties"=>{},
+                                 "geometry"=>
+                                   {"type"=>"Polygon",
+                                    "coordinates"=>
+                                      [[[-122.52330780029295, 37.80815648152641],
+                                        [-122.38357543945312, 37.81385247479046],
+                                        [-122.33379364013672, 37.69197100839692],
+                                        [-122.50888824462889, 37.67920120945425],
+                                        [-122.52330780029295, 37.80815648152641]]]}}
+                               ]
+                            }]
+                        })
+    end
+    it 'should return all regions where UberRUSH is available' do
+      regions = client.deliveries_regions
+      expect(regions.size).to eql 1
+      expect(regions[0].city).to eql 'San Francisco'
+      expect(regions[0].country).to eql 'USA'
+      expect(regions[0].type).to eql 'FeatureCollection'
+      expect(regions[0].features.class).to eql Array
+    end
+  end
 end

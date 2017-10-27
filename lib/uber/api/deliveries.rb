@@ -51,6 +51,10 @@ module Uber
         delivery_id = delivery_id.is_a?(Delivery::Delivery) ? delivery_id.delivery_id : delivery_id
         perform_without_object(:post, "/v1/deliveries/#{delivery_id}/cancel", {})
       end
+
+      def deliveries_regions
+        perform_with_objects(:get, "/v1/deliveries/regions", {}, Delivery::Region)
+      end
     end
   end
 end
