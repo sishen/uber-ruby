@@ -327,7 +327,119 @@ trip.duration #=> 0
 ```
 More details can be found [here](https://developer.uber.com/docs/drivers/references/api/v1/partners-trips-get).
 
+## Deliveries API
+[Deliveries API]() lets you and your customer track the exact location of your delivery from any device. 
 
+We provide this under namespace of `client.deliveries`
+> OAuth 2.0 bearer token with the delivery scope 
+
+
+### List deliveries
+It retrieves a list of all deliveries
+  
+
+```ruby
+deliveries = client.deliveries.list #=> Array of Uber::Delivery::Delivery
+```
+More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1/deliveries-get)
+
+### Create a delivery
+It allows a delivery to be requested given the delivery information and quote ID
+
+```ruby
+delivery = client.deliveries.add_delivery({quote_id: 'KEBjNGUxNjhlZmNmMD...', .. })
+delivery.quote_id #=> 'KEBjNGUxNjhlZmNmMD...'
+```
+More details and parameters can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1/deliveries-post)
+
+### Create delivery quote
+Generate a delivery quote, given a pickup and dropoff location. On-demand and scheduled delivery quotes will be returned.
+
+```ruby
+quotes = client.deliveries.add_quote({ "pickup" => { "location" => { ... } }, 
+                                       "dropoff" => { "location" => { ... } } )
+# returns array of Uber::Delivery::Quote containing all On-demand and scheduled delivery quotes
+quotes.size #=> 4
+quotes[0].fee #=> 5.42
+```
+More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1/deliveries-quote-post)
+
+### Retrieve a delivery information
+Get the status of an ongoing delivery
+
+```ruby
+delivery = client.deliveries.retrieve('8b58bc58-7352-4278-b569-b5d24d8e3f76') #=> Uber::Delivery::Delivery
+delivery.currency_code #=> "USD"
+delivery.delivery_id #=> '8b58bc58-7352-4278-b569-b5d24d8e3f76'
+delivery.fee #=> 5.0
+```
+More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1/deliveries-delivery_id-get)
+
+### Retrieve receipt for a delivery
+```ruby
+receipt = client.deliveries.receipt('8b58bc58-7352-4278-b569-b5d24d8e3f76') #=> Uber::Delivery::Receipt
+receipt.delivery_id #=> '8b58bc58-7352-4278-b569-b5d24d8e3f76'
+receipt.total_fee #=> 6.17
+receipt.charges #=> hash of charges
+```
+More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1/deliveries-delivery_id-receipt-get)
+
+### Get delivery ratings
+Retrieve the available ratings for a delivery.
+
+```ruby
+ratings = client.deliveries.ratings('8b58bc58-7352-4278-b569-b5d24d8e3f76')
+# Array of Uber::Delivery::Rating
+ratings.size #=> 2
+ratings[0].waypoint #=> 'pickup'
+```
+More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1/deliveries-delivery_id-ratings-get)
+
+### Submit a rating
+Submit a rating for a delivery.
+
+```ruby
+status = client.deliveries.add_rating('8b58bc58-7352-4278-b569-b5d24d8e3f76',
+                                          {"waypoint"=>"dropoff",
+                                           "rating_type"=>"binary",
+                                           "rating_value"=>0,
+                                           "tags"=>["courier_not_on_time", "delivery_in_good_condition"],
+                                           "comments"=>"Courier was not professionally dressed."})
+# Returns the status code, with no content
+status #=> 204                                           
+```
+More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1/deliveries-delivery_id-ratings-post)
+
+### Get rating tags
+Retrieve the available rating tags for a delivery
+
+```ruby
+tags = client.deliveries.rating_tags('8b58bc58-7352-4278-b569-b5d24d8e3f76')
+# Array of Uber::Deliery::RatingTag
+tags.size #=> 2
+tags[0].waypoint #=> 'pickup'
+tags.tags #=> Array of rating tags for delivery 
+```
+More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1/deliveries-delivery_id-rating_tags-get)
+
+### Cancel a delivery
+Cancel an existing delivery.
+
+```ruby
+status = client.deliveries.cancel('8b58bc58-7352-4278-b569-b5d24d8e3f76')
+status #=> 204
+```
+More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1/deliveries-delivery_id-cancel-post)
+
+### Get service regions
+Returns all regions where UberRUSH is available.
+
+```ruby
+regions = client.deliveries.regions
+# Array of Uber::Delivery::Region
+regions[0].city #=> 'San Francisco'
+```
+More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1/deliveries-regions-get)
 
 ## Contributors
 
