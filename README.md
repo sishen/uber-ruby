@@ -329,9 +329,18 @@ More details can be found [here](https://developer.uber.com/docs/drivers/referen
 
 ## Deliveries API
 [Deliveries API]() lets you and your customer track the exact location of your delivery from any device. 
-
-We provide this under namespace of `client.deliveries`
 > OAuth 2.0 bearer token with the delivery scope 
+
+We provide this under namespace of `client.deliveries`. To get bearer token with `delivery` scope, follow this [guide](https://developer.uber.com/docs/deliveries/guides/authentication#client-credentials-flow).
+
+```ruby
+client = Uber::Client.new do |config|
+  config.server_token  = "YOUR_SERVER_TOKEN"
+  config.client_id     = "YOUR_CLIENT_ID"
+  config.client_secret = "YOUR_CLIENT_SECRET"
+  config.bearer_token  = "USER_ACCESS_TOKEN"
+end
+```
 
 
 ### List deliveries
