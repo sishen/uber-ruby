@@ -30,9 +30,14 @@ module Uber
     # @param klass [Class]
     # @return [Array]
     def perform_with_objects(klass)
-      perform.values.flatten.collect do |element|
+      ((perform.values.find { |v| v.is_a?(Array) }) || []).collect do |element|
         klass.new(element)
       end
+    end
+
+    # @return status_code [Integer]
+    def perform_without_object
+      @client.send(@request_method, @path, @options).status
     end
   end
 end
