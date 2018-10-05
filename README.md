@@ -1,9 +1,10 @@
 
 # The Uber Ruby Gem
 
+![travis AnkurGel](https://travis-ci.org/AnkurGel/uber-ruby.svg?branch=master)
+
 > A Ruby interface to the Uber API.
 
-Status: ![travis AnkurGel](https://travis-ci.org/AnkurGel/uber-ruby.svg?branch=master)
 
 ## Installation
 
