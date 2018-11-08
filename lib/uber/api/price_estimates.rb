@@ -7,7 +7,7 @@ module Uber
     module PriceEstimates
       def price_estimations(*args)
         arguments = Uber::Arguments.new(args)
-        perform_with_objects(:get, "/v1/estimates/price", arguments.options, Price)
+        perform_with_objects(:get, "/v1.2/estimates/price", arguments.options, Price)
       end
     end
   end

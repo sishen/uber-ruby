@@ -5,7 +5,7 @@ describe Uber::API::Places do
   let!(:client) { setup_client }
 
   before do
-    stub_uber_request(:get, 'v1/places/home', {address: 'Mumbai, India'})
+    stub_uber_request(:get, 'v1.2/places/home', {address: 'Mumbai, India'})
   end
 
   it 'should return information about place' do
@@ -16,7 +16,7 @@ describe Uber::API::Places do
 
   describe 'update' do
     before do
-      stub_uber_request(:put, 'v1/places/work', {address: 'Mumbai, Maharashtra, India'}, body: {address: 'Mumbai, India'}.to_json)
+      stub_uber_request(:put, 'v1.2/places/work', {address: 'Mumbai, Maharashtra, India'}, body: {address: 'Mumbai, India'}.to_json)
     end
 
     it 'should save and return correct address' do

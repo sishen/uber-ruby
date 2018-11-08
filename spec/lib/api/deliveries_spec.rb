@@ -6,7 +6,7 @@ describe Uber::API::Deliveries do
 
   describe 'on requesting deliveries' do
     before do
-      stub_uber_request(:get, 'v1/deliveries',
+      stub_uber_request(:get, 'v1.2/deliveries',
                         {
                           "count" => 172,
                           "next_page" => "status=completed&limit=10&offset=10",
@@ -119,7 +119,7 @@ describe Uber::API::Deliveries do
 
   describe 'on requesting a particular delivery' do
     before do
-      stub_uber_request(:get, "v1/deliveries/8b58bc58-7352-4278-b569-b5d24d8e3f76",
+      stub_uber_request(:get, "v1.2/deliveries/8b58bc58-7352-4278-b569-b5d24d8e3f76",
                         {
                           "courier"=>
                            {"location"=>
@@ -225,7 +225,7 @@ describe Uber::API::Deliveries do
 
   describe 'on creating a delivery' do
     before do
-      stub_uber_request(:post, "v1/deliveries",
+      stub_uber_request(:post, "v1.2/deliveries",
                         {"courier"=>nil,
                          "created_at"=>1441146983,
                          "currency_code"=>"USD",
@@ -420,7 +420,7 @@ describe Uber::API::Deliveries do
 
   describe 'on adding quote' do
     before do
-      stub_uber_request(:post, 'v1/deliveries/quote',
+      stub_uber_request(:post, 'v1.2/deliveries/quote',
                         {"quotes"=>
                            [{"quote_id"=>
                                "CwACAAAAQGU0NTYwYjUyNjY4YzBjNDBiNDFjYzA4ZDdlNzE0OWM3ZmYxZjY0NTJkNDQ1NjE2NDg3NDI1ZmFkZjZiYTI1ODcIAANXHm3xCAAEVx5wSQgABQBSs-AMAAYIAAEYXJdJCAAC0_FrQwAMAAcIAAEYWt-7CAAC0_BeNAALAAgAAAADVVNEAA==",
@@ -521,7 +521,7 @@ describe Uber::API::Deliveries do
 
   describe 'on requesting receipt' do
     before do
-      stub_uber_request(:get, 'v1/deliveries/78aa3783-e845-4a85-910c-be30dd0c712b/receipt',
+      stub_uber_request(:get, 'v1.2/deliveries/78aa3783-e845-4a85-910c-be30dd0c712b/receipt',
                         {"charges"=>[{"amount"=>9.79, "name"=>"Trip fare"}],
                          "charge_adjustments"=>
                            [{"amount"=>-1, "name"=>"Uber Credit"},
@@ -542,7 +542,7 @@ describe Uber::API::Deliveries do
 
   describe 'on requesting ratings of a delivery' do
     before do
-      stub_uber_request(:get, 'v1/deliveries/8b58bc58-7352-4278-b569-b5d24d8e3f76/ratings',
+      stub_uber_request(:get, 'v1.2/deliveries/8b58bc58-7352-4278-b569-b5d24d8e3f76/ratings',
                         {"ratings"=>
                            [{"waypoint"=>"pickup",
                              "rating_type"=>"binary",
@@ -570,7 +570,7 @@ describe Uber::API::Deliveries do
 
   describe 'on adding a rating to a delivery' do
     before do
-      stub_uber_request(:post, 'v1/deliveries/8b58bc58-7352-4278-b569-b5d24d8e3f76/rating',
+      stub_uber_request(:post, 'v1.2/deliveries/8b58bc58-7352-4278-b569-b5d24d8e3f76/rating',
                         nil,
                         body: {"waypoint"=>"dropoff",
                                "rating_type"=>"binary",
@@ -594,7 +594,7 @@ describe Uber::API::Deliveries do
 
   describe 'on request delivery rating tags' do
     before do
-      stub_uber_request(:get, 'v1/deliveries/8b58bc58-7352-4278-b569-b5d24d8e3f76/rating_tags',
+      stub_uber_request(:get, 'v1.2/deliveries/8b58bc58-7352-4278-b569-b5d24d8e3f76/rating_tags',
                         {"rating_tags"=>
                            [{"waypoint"=>"pickup",
                              "tags"=>
@@ -630,7 +630,7 @@ describe Uber::API::Deliveries do
 
   describe 'on canceling the delivery' do
     before do
-      stub_uber_request(:post, 'v1/deliveries/8b58bc58-7352-4278-b569-b5d24d8e3f76/cancel', nil,
+      stub_uber_request(:post, 'v1.2/deliveries/8b58bc58-7352-4278-b569-b5d24d8e3f76/cancel', nil,
                         body: {}.to_json, status_code: 204)
     end
     it 'should cancel the delivery request and return status code' do
@@ -641,7 +641,7 @@ describe Uber::API::Deliveries do
 
   describe 'on requesting regions' do
     before do
-      stub_uber_request(:get, 'v1/deliveries/regions',
+      stub_uber_request(:get, 'v1.2/deliveries/regions',
                         {"regions"=>
                            [{"city"=>"San Francisco",
                              "country"=>"USA",

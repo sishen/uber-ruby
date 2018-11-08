@@ -5,8 +5,8 @@ describe Uber::API::TimeEstimates do
   let!(:client) { setup_client }
 
   before do
-    stub_uber_request(:get, 'v1/estimates/time?start_latitude=0.6&start_longitude=0.6',
-                      # From: https://developer.uber.com/v1/endpoints/#time-estimates
+    stub_uber_request(:get, 'v1.2/estimates/time?start_latitude=0.6&start_longitude=0.6',
+                      # From: https://developer.uber.com/v1.2/endpoints/#time-estimates
                       {
                         "times" => [
                           {

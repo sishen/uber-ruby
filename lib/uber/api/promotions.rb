@@ -7,7 +7,7 @@ module Uber
     module Promotions
       def promotion(*args)
         arguments = Uber::Arguments.new(args)
-        perform_with_object(:get, "/v1/promotions", arguments.options, Promotion)
+        perform_with_object(:get, "/v1.2/promotions", arguments.options, Promotion)
       end
     end
   end

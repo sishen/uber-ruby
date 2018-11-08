@@ -7,7 +7,7 @@ describe Uber::API::Partners do
 
   describe "profile" do
     before do
-      stub_uber_request(:get, 'v1/partners/me',
+      stub_uber_request(:get, 'v1.2/partners/me',
                         {"driver_id" => "3ag923b1-ff5d-4422-80da-a5cefdca3cea",
                          "first_name" => "John",
                          "last_name" => "Driver",
@@ -39,7 +39,7 @@ describe Uber::API::Partners do
   describe "payments" do
     describe 'without options' do
       before do
-        stub_uber_request(:get, 'v1/partners/payments',
+        stub_uber_request(:get, 'v1.2/partners/payments',
                           {"offset" => 0,
                            "limit" => 2,
                            "count" => 123,
@@ -93,7 +93,7 @@ describe Uber::API::Partners do
 
     describe 'with options' do
       before do
-        stub_uber_request(:get, 'v1/partners/payments?limit=1&offset=1',
+        stub_uber_request(:get, 'v1.2/partners/payments?limit=1&offset=1',
                           {"offset" => 1,
                            "limit" => 1,
                            "count" => 123,
@@ -137,7 +137,7 @@ describe Uber::API::Partners do
   describe "trips" do
     describe 'without options' do
       before do
-        stub_uber_request(:get, 'v1/partners/trips',
+        stub_uber_request(:get, 'v1.2/partners/trips',
                           {"count" => 1,
                            "limit" => 10,
                            "offset" => 0,
@@ -198,7 +198,7 @@ describe Uber::API::Partners do
 
     describe 'with options' do
       before do
-        stub_uber_request(:get, 'v1/partners/trips?offset=1&limit=1',
+        stub_uber_request(:get, 'v1.2/partners/trips?offset=1&limit=1',
                           {"count" => 1,
                            "limit" => 1,
                            "offset" => 1,
