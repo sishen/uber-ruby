@@ -7,8 +7,8 @@ describe Uber::API::Products do
   describe '#products' do
     context 'with a valid response' do
       before do
-        stub_uber_request(:get, "v1/products",
-                          # From: https://developer.uber.com/v1/endpoints/#product-types
+        stub_uber_request(:get, "v1.2/products",
+                          # From: https://developer.uber.com/v1.2/endpoints/#product-types
                           {
                             "products" => [
                               {
@@ -172,7 +172,7 @@ describe Uber::API::Products do
     let!(:sandbox_client) { setup_client(sandbox: true) }
 
     before do
-      stub_uber_request(:put, "v1/sandbox/products/deadbeef",
+      stub_uber_request(:put, "v1.2/sandbox/products/deadbeef",
                         # From: https://developer.uber.com/docs/v1-requests-cancel
                         nil,
                         body: {surge_multiplier: 2.0},
@@ -190,7 +190,7 @@ describe Uber::API::Products do
     let!(:sandbox_client) { setup_client(sandbox: true) }
 
     before do
-      stub_uber_request(:put, "v1/sandbox/products/deadbeef",
+      stub_uber_request(:put, "v1.2/sandbox/products/deadbeef",
                         # From: https://developer.uber.com/docs/v1-requests-cancel
                         nil,
                         body: {drivers_available: false},

@@ -5,8 +5,8 @@ describe Uber::API::Me do
   let!(:client) { setup_client }
 
   before do
-    stub_uber_request(:get, "v1/me",
-                      # From: https://developer.uber.com/v1/endpoints/#user-profile
+    stub_uber_request(:get, "v1.2/me",
+                      # From: https://developer.uber.com/v1.2/endpoints/#user-profile
                       {
                         "first_name" => "Uber",
                         "last_name" => "Developer",

@@ -293,7 +293,7 @@ driver.first_name #=> 'John'
 driver.last_name #=> 'Driver'
 driver.promo_code #=> 'join_john_on_uber'
 ```
-More details can be found [here](https://developer.uber.com/docs/drivers/references/api/v1/partners-me-get).
+More details can be found [here](https://developer.uber.com/docs/drivers/references/api/v1.2/partners-me-get).
 
 ### Earnings details
 It returns an array of payments for the given driver. Payments are available at this endpoint in near real-time.
@@ -313,7 +313,7 @@ payment.event_time #=> 2016-11-12 10:29:28 UTC
 # Using params:
 earnings = client.partners.payments(:offset => 1, :limit => 2)
 ```
-More details can be found [here](https://developer.uber.com/docs/drivers/references/api/v1/partners-payments-get).
+More details can be found [here](https://developer.uber.com/docs/drivers/references/api/v1.2/partners-payments-get).
 
 ### Trips details
 It returns an array of trips for the authenticated driver.    
@@ -329,7 +329,7 @@ trip.distance #=> 0
 trip.status #=> 'driver_canceled'
 trip.duration #=> 0
 ```
-More details can be found [here](https://developer.uber.com/docs/drivers/references/api/v1/partners-trips-get).
+More details can be found [here](https://developer.uber.com/docs/drivers/references/api/v1.2/partners-trips-get).
 
 ## Deliveries API
 [Deliveries API]() lets you and your customer track the exact location of your delivery from any device. 
@@ -354,7 +354,7 @@ It retrieves a list of all deliveries
 ```ruby
 deliveries = client.deliveries.list #=> Array of Uber::Delivery::Delivery
 ```
-More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1/deliveries-get)
+More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1.2/deliveries-get)
 
 ### Create a delivery
 It allows a delivery to be requested given the delivery information and quote ID
@@ -363,7 +363,7 @@ It allows a delivery to be requested given the delivery information and quote ID
 delivery = client.deliveries.add_delivery({quote_id: 'KEBjNGUxNjhlZmNmMD...', .. })
 delivery.quote_id #=> 'KEBjNGUxNjhlZmNmMD...'
 ```
-More details and parameters can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1/deliveries-post)
+More details and parameters can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1.2/deliveries-post)
 
 ### Create delivery quote
 Generate a delivery quote, given a pickup and dropoff location. On-demand and scheduled delivery quotes will be returned.
@@ -375,7 +375,7 @@ quotes = client.deliveries.add_quote({ "pickup" => { "location" => { ... } },
 quotes.size #=> 4
 quotes[0].fee #=> 5.42
 ```
-More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1/deliveries-quote-post)
+More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1.2/deliveries-quote-post)
 
 ### Retrieve a delivery information
 Get the status of an ongoing delivery
@@ -386,7 +386,7 @@ delivery.currency_code #=> "USD"
 delivery.delivery_id #=> '8b58bc58-7352-4278-b569-b5d24d8e3f76'
 delivery.fee #=> 5.0
 ```
-More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1/deliveries-delivery_id-get)
+More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1.2/deliveries-delivery_id-get)
 
 ### Retrieve receipt for a delivery
 ```ruby
@@ -395,7 +395,7 @@ receipt.delivery_id #=> '8b58bc58-7352-4278-b569-b5d24d8e3f76'
 receipt.total_fee #=> 6.17
 receipt.charges #=> hash of charges
 ```
-More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1/deliveries-delivery_id-receipt-get)
+More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1.2/deliveries-delivery_id-receipt-get)
 
 ### Get delivery ratings
 Retrieve the available ratings for a delivery.
@@ -406,7 +406,7 @@ ratings = client.deliveries.ratings('8b58bc58-7352-4278-b569-b5d24d8e3f76')
 ratings.size #=> 2
 ratings[0].waypoint #=> 'pickup'
 ```
-More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1/deliveries-delivery_id-ratings-get)
+More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1.2/deliveries-delivery_id-ratings-get)
 
 ### Submit a rating
 Submit a rating for a delivery.
@@ -421,7 +421,7 @@ status = client.deliveries.add_rating('8b58bc58-7352-4278-b569-b5d24d8e3f76',
 # Returns the status code, with no content
 status #=> 204                                           
 ```
-More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1/deliveries-delivery_id-ratings-post)
+More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1.2/deliveries-delivery_id-ratings-post)
 
 ### Get rating tags
 Retrieve the available rating tags for a delivery
@@ -433,7 +433,7 @@ tags.size #=> 2
 tags[0].waypoint #=> 'pickup'
 tags.tags #=> Array of rating tags for delivery 
 ```
-More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1/deliveries-delivery_id-rating_tags-get)
+More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1.2/deliveries-delivery_id-rating_tags-get)
 
 ### Cancel a delivery
 Cancel an existing delivery.
@@ -442,7 +442,7 @@ Cancel an existing delivery.
 status = client.deliveries.cancel('8b58bc58-7352-4278-b569-b5d24d8e3f76')
 status #=> 204
 ```
-More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1/deliveries-delivery_id-cancel-post)
+More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1.2/deliveries-delivery_id-cancel-post)
 
 ### Get service regions
 Returns all regions where UberRUSH is available.
@@ -452,7 +452,7 @@ regions = client.deliveries.regions
 # Array of Uber::Delivery::Region
 regions[0].city #=> 'San Francisco'
 ```
-More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1/deliveries-regions-get)
+More details can be found [here](https://developer.uber.com/docs/deliveries/references/api/v1.2/deliveries-regions-get)
 
 ## Contributors
 

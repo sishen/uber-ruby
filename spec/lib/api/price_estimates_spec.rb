@@ -5,8 +5,8 @@ describe Uber::API::PriceEstimates do
   let!(:client) { setup_client }
 
   before do
-    stub_uber_request(:get, 'v1/estimates/price?start_latitude=0.0&start_longitude=0.5&end_latitude=0.0&end_longitude=0.6',
-                      # From: https://developer.uber.com/v1/endpoints/#price-estimates
+    stub_uber_request(:get, 'v1.2/estimates/price?start_latitude=0.0&start_longitude=0.5&end_latitude=0.0&end_longitude=0.6',
+                      # From: https://developer.uber.com/v1.2/endpoints/#price-estimates
                       {
                         "prices" => [
                           {

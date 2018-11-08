@@ -7,7 +7,7 @@ describe Uber::API::Reminders do
   describe "get reminder" do
     before do
       # From: https://developer.uber.com/docs/rides/api/v1-reminders-get
-      stub_uber_request(:get, 'v1/reminders/48ee034e-311d-41ea-9794-02fc8dcd8696',
+      stub_uber_request(:get, 'v1.2/reminders/48ee034e-311d-41ea-9794-02fc8dcd8696',
                         {"reminder_status"=>"pending", "reminder_id"=>"48ee034e-311d-41ea-9794-02fc8dcd8696", "reminder_time"=>1473296851,
                          "event"=>{"latitude"=>nil, "time"=>1473507651, "name"=>nil, "longitude"=>nil, "location"=>nil}, "product_id"=>{}}
       )
@@ -32,7 +32,7 @@ describe Uber::API::Reminders do
     before do
       # From: https://developer.uber.com/docs/rides/api/v1-reminders-post
       @time_now = Time.at(1473275408)
-      stub_uber_request(:post, 'v1/reminders',
+      stub_uber_request(:post, 'v1.2/reminders',
                         {
                           reminder_time: 1473377003,
                           phone_number: '+91-9999999999',
@@ -72,7 +72,7 @@ describe Uber::API::Reminders do
     before do
       # From: https://developer.uber.com/docs/rides/api/v1-reminders-patch
       @time_now = Time.at(1473275408)
-      stub_uber_request(:patch, 'v1/reminders/rem1',
+      stub_uber_request(:patch, 'v1.2/reminders/rem1',
                         {
                           reminder_time: 1473549803,
                           phone_number: '+91-9999999999',
@@ -99,7 +99,7 @@ describe Uber::API::Reminders do
   describe "delete reminder" do
     before do
       # From: https://developer.uber.com/docs/rides/api/v1-reminders-delete
-      stub_uber_request(:delete, 'v1/reminders/my_reminder', nil, {status_code: 204})
+      stub_uber_request(:delete, 'v1.2/reminders/my_reminder', nil, {status_code: 204})
     end
     it 'should successfully delete the reminder' do
       reminder = client.delete_reminder 'my_reminder'

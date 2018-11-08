@@ -7,7 +7,7 @@ describe Uber::API::Requests do
   describe '#trip_estimate' do
     context 'with a valid response' do
       before do
-        stub_uber_request(:post, "v1/requests/estimate",
+        stub_uber_request(:post, "v1.2/requests/estimate",
                           # From: https://developer.uber.com/docs/v1-requests-estimate
                           {
                             "price" => {
@@ -35,7 +35,7 @@ describe Uber::API::Requests do
         request = client.trip_estimate(product_id: 'deadbeef', start_latitude: 0.0, start_longitude: 0.5, end_latitude: 0.0, end_longitude: 0.6)
         expect(request.pickup_estimate).to eql 2
 
-        expect(request.price.surge_confirmation_href).to eql 'https://api.uber.com/v1/surge-confirmations/7d604f5e'
+        expect(request.price.surge_confirmation_href).to eql 'https://api.uber.com/v1.2/surge-confirmations/7d604f5e'
         expect(request.price.high_estimate).to eql 6
         expect(request.price.surge_confirmation_id).to eql  '7d604f5e'
         expect(request.price.minimum).to eql 5
@@ -54,8 +54,8 @@ describe Uber::API::Requests do
   describe '#trip_request' do
     context 'with a valid response' do
       before do
-        stub_uber_request(:post, "v1/requests",
-                          # From: https://developer.uber.com/v1/endpoints/#request
+        stub_uber_request(:post, "v1.2/requests",
+                          # From: https://developer.uber.com/v1.2/endpoints/#request
                           {
                             "status" => "accepted",
                             "driver" => {
@@ -109,8 +109,8 @@ describe Uber::API::Requests do
         let!(:sandbox_client) { setup_client(sandbox: true) }
 
         before do
-          stub_uber_request(:post, "v1/requests",
-                            # From: https://developer.uber.com/v1/endpoints/#request
+          stub_uber_request(:post, "v1.2/requests",
+                            # From: https://developer.uber.com/v1.2/endpoints/#request
                             {
                               "status" => "accepted",
                               "driver" => {
@@ -165,8 +165,8 @@ describe Uber::API::Requests do
 
     context 'with a "processing" response' do
       before do
-        stub_uber_request(:post, "v1/requests",
-                          # From: https://developer.uber.com/v1/endpoints/#request
+        stub_uber_request(:post, "v1.2/requests",
+                          # From: https://developer.uber.com/v1.2/endpoints/#request
                           {
                             :status => "processing",
                             :request_id => "cad219b7-9cfa-4861-b59b-1e1184429b33",
@@ -195,12 +195,12 @@ describe Uber::API::Requests do
 
     context 'with a 409 conflict with surge response' do
       before do
-        stub_uber_request(:post, "v1/requests",
-                          # From: https://developer.uber.com/v1/endpoints/#request
+        stub_uber_request(:post, "v1.2/requests",
+                          # From: https://developer.uber.com/v1.2/endpoints/#request
                           {
                             "meta" => {
                               "surge_confirmation" => {
-                                "href" => "https://api.uber.com/v1/surge-confirmations/e100a670",
+                                "href" => "https://api.uber.com/v1.2/surge-confirmations/e100a670",
                                 "surge_confirmation_id" => "e100a670"
                               }
                             },
@@ -224,7 +224,7 @@ describe Uber::API::Requests do
         expect(request.errors[0].code).to eql 'surge'
         expect(request.errors[0].title).to eql "Surge pricing is currently in effect for this product."
 
-        expect(request.meta[:surge_confirmation][:href]).to eql "https://api.uber.com/v1/surge-confirmations/e100a670"
+        expect(request.meta[:surge_confirmation][:href]).to eql "https://api.uber.com/v1.2/surge-confirmations/e100a670"
         expect(request.meta[:surge_confirmation][:surge_confirmation_id]).to eql "e100a670"
       end
     end
@@ -232,8 +232,8 @@ describe Uber::API::Requests do
 
   describe '#trip_details' do
     before do
-      stub_uber_request(:get, "v1/requests/deadbeef",
-                        # From: https://developer.uber.com/v1/endpoints/#request-details
+      stub_uber_request(:get, "v1.2/requests/deadbeef",
+                        # From: https://developer.uber.com/v1.2/endpoints/#request-details
                         {
                           "status" => "accepted",
                           "driver" => {
@@ -303,8 +303,8 @@ describe Uber::API::Requests do
 
   describe '#trip_map' do
     before do
-      stub_uber_request(:get, "v1/requests/deadbeef/map",
-                        # From: https://developer.uber.com/v1/endpoints/#request-map
+      stub_uber_request(:get, "v1.2/requests/deadbeef/map",
+                        # From: https://developer.uber.com/v1.2/endpoints/#request-map
                         {
                           "request_id" => "b5512127-a134-4bf4-b1ba-fe9f48f56d9d",
                           "href" => "https://trip.uber.com/abc123"
@@ -322,8 +322,8 @@ describe Uber::API::Requests do
     let!(:sandbox_client) { setup_client(sandbox: true) }
 
     before do
-      stub_uber_request(:put, "v1/sandbox/requests/deadbeef",
-                        # From: https://developer.uber.com/v1/sandbox/
+      stub_uber_request(:put, "v1.2/sandbox/requests/deadbeef",
+                        # From: https://developer.uber.com/v1.2/sandbox/
                         nil,
                         body: {status: 'accepted'}.to_json,
                         status_code: 204,
@@ -340,7 +340,7 @@ describe Uber::API::Requests do
     let!(:sandbox_client) { setup_client(sandbox: true) }
 
     before do
-      stub_uber_request(:delete, "v1/requests/deadbeef",
+      stub_uber_request(:delete, "v1.2/requests/deadbeef",
                         # From: https://developer.uber.com/docs/v1-requests-cancel
                         nil,
                         body: {},

@@ -7,7 +7,7 @@ module Uber
     module Me
       def me(*args)
         arguments = Uber::Arguments.new(args)
-        perform_with_object(:get, "/v1/me", arguments.options, User)
+        perform_with_object(:get, "/v1.2/me", arguments.options, User)
       end
     end
   end

@@ -7,7 +7,7 @@ module Uber
     module TimeEstimates
       def time_estimations(*args)
         arguments = Uber::Arguments.new(args)
-        perform_with_objects(:get, "/v1/estimates/time", arguments.options, Time)
+        perform_with_objects(:get, "/v1.2/estimates/time", arguments.options, Time)
       end
     end
   end
